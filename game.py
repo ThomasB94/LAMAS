@@ -1,4 +1,5 @@
 from agent import Agent
+from constants import *
 import random
 
 class Game():
@@ -18,7 +19,7 @@ class Game():
         # setup table
         # Even (inc. 0) table cards go up initially, odd go down
         #TODO: make this variable
-        self.table = [1,self.top_card]
+        self.table = [(1,UP),(self.top_card,DOWN)]
 
         # remaining is the pile that cars are taken from after every turn
         self.remaining = possible_cards = list(range(2,self.top_card))
@@ -35,16 +36,44 @@ class Game():
         print("Remaing cards are:", self.remaining)
         print("-------------------------")
         
+    # A round is a round of announcements after which an agent decides which stack to put their card on
     def game_loop(self):
+        agent_turn = 0
         round = 1
         while True:
-            print("Starting round 1")
+            print("Starting round", round)
+            print("Every agent will make an announcement, after which")
+            print("agent", agent_turn + 1, "will decide which table stack to put a card on")
+            # this doesn't do anything yet
+            for agent in self.agents:
+                agent.make_announcement()
+            agent = self.agents[agent_turn]
             
+            if not agent.can_make_move():
+                print("Agent", agent_turn + 1, "can't make a move, so the game ends")
+                break
             
+            card, stack_idx = agent.make_move()
 
-
-            
+            agent.take_card()
+        
+            self.handle_table()
+            if self.game_won():
+                print("Game is won, because all agents have 0 cards left")
+                break
+            agent_turn = agent_turn + 1
+            if agent_turn == self.num_agents:
+                agent_turn = 0
             round = round + 1
-            break
-            
 
+
+    def game_won(self):
+        status = True
+        for agent in self.agents:
+            if agent.hand:
+                status = False
+                break
+        return status
+            
+    def handle_table():
+        pass
