@@ -8,6 +8,7 @@ class Game():
         self.top_card = top_card
         # how many cards get dealt
         self.num_initial_cards = 5
+        self.won = False
         self.announcements = announcements
         print("Setting up game with", num_agents, "agents and", top_card, "as the highest cards")
         print(announcements, "is the announcements setting")
@@ -41,6 +42,7 @@ class Game():
         agent_turn = 0
         round = 1
         while True:
+            print("----------------------------------")
             print("Starting round", round)
             print("Every agent will make an announcement, after which")
             print("agent", agent_turn + 1, "will decide which table stack to put a card on")
@@ -50,16 +52,20 @@ class Game():
             agent = self.agents[agent_turn]
             
             if not agent.can_make_move():
-                print("Agent", agent_turn + 1, "can't make a move, so the game ends")
+                print("Agent", agent_turn + 1, "can't make a move, so the game is lost")
+                print("HERE AGENT STACKS", self.agents[0].hand, self.agents[1].hand)
                 break
             
+
+            print("Agent had stack", self.agents[agent_turn].hand)
             card, stack_idx = agent.make_move()
+            print("agent put", card, "on stack", stack_idx)
 
             agent.take_card()
         
-            self.handle_table()
             if self.game_won():
                 print("Game is won, because all agents have 0 cards left")
+                self.won = True
                 break
             agent_turn = agent_turn + 1
             if agent_turn == self.num_agents:
@@ -75,5 +81,3 @@ class Game():
                 break
         return status
             
-    def handle_table():
-        pass
