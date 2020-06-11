@@ -41,7 +41,6 @@ class Agent():
                     return False
                 else:
                     return True
-
             elif stack[1] == DOWN:
                 diffs = stack[0] - np.array(self.hand)
                 if all(x < 0 for x in diffs):
