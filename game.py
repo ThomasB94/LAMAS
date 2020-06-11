@@ -12,10 +12,12 @@ class Game():
         print(announcements, "is the announcements setting")
         print("--------------------------------------------")
         self.setup_game()
+        self.game_loop()
 
     def setup_game(self):
         # setup table
         # Even (inc. 0) table cards go up initially, odd go down
+        #TODO: make this variable
         self.table = [1,self.top_card]
 
         # remaining is the pile that cars are taken from after every turn
@@ -28,7 +30,7 @@ class Game():
             hand = []
             for _ in range(self.num_initial_cards):
                 hand.append(self.remaining.pop())
-            self.agents.append(Agent(agent_idx, hand))
+            self.agents.append(Agent(agent_idx, hand, self))
             print("Agent", agent_idx + 1, "has cards", hand)
         print("Remaing cards are:", self.remaining)
         print("-------------------------")
@@ -37,6 +39,12 @@ class Game():
         round = 1
         while True:
             print("Starting round 1")
-            for 
+            
+            
+
+
+            
+            round = round + 1
+            break
             
 
