@@ -18,21 +18,21 @@ class Agent():
             print(stack)
             if stack[1] == UP:
                 # difference between hand cards and stack card
-                diff = np.array(self.hand) - stack[0]
+                diff = np.array(self.hand) - stack[0][-1]
                 diff[diff < 0] = 99999
                 idx = diff.argmin()
                 diff = diff[idx]
                 diffs.append((diff, idx, UP))
             elif stack[1] == DOWN:
-                diff = stack[0] - np.array(self.hand)
+                diff = stack[0][-1] - np.array(self.hand)
                 diff[diff < 0] = 99999
                 idx = diff.argmin()
                 diff = diff[idx]
                 diffs.append((diff, idx, DOWN))
         stack_idx = np.array(diffs).argmin(axis=0)[0]
-        (_, hand_idx, stack_direction) = min(diffs, key=lambda x:x[0])
+        (_, hand_idx, _) = min(diffs, key=lambda x:x[0])
         card = self.hand.pop(hand_idx)
-        self.game.table[stack_idx] = (card, stack_direction)
+        self.game.table[stack_idx][0].append(card)
         return (card, stack_idx)
         
         
@@ -40,11 +40,11 @@ class Agent():
         status = False
         for stack in self.game.table:
             if stack[1] == UP:
-                diffs = np.array(self.hand) - stack[0]
+                diffs = np.array(self.hand) - stack[0][-1]
                 if not all(x < 0 for x in diffs):
                     status = True
             elif stack[1] == DOWN:
-                diffs = stack[0] - np.array(self.hand)
+                diffs = stack[0][-1] - np.array(self.hand)
                 if not all(x < 0 for x in diffs):
                     status = True
 

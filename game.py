@@ -20,7 +20,7 @@ class Game():
         # setup table
         # Even (inc. 0) table cards go up initially, odd go down
         #TODO: make this variable
-        self.table = [(1,UP),(self.top_card,DOWN)]
+        self.table = [([1],UP),([self.top_card],DOWN)]
 
         # remaining is the pile that cars are taken from after every turn
         self.remaining = possible_cards = list(range(2,self.top_card))
