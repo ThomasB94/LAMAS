@@ -33,9 +33,10 @@ class Agent():
         (_, hand_idx, _) = min(diffs, key=lambda x:x[0])
         card = self.hand.pop(hand_idx)
         self.game.table[stack_idx][0].append(card)
+        self.played_cards[card] = True
         return (card, stack_idx)
-        
-        
+
+
     def can_make_move(self):
         status = False
         for stack in self.game.table:
@@ -49,7 +50,7 @@ class Agent():
                     status = True
 
         return status
-                
+
 
     def take_card(self):
         if self.game.remaining:

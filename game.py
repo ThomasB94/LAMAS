@@ -6,6 +6,8 @@ class Game():
     def __init__(self, num_agents, top_card, announcements):
         self.num_agents = num_agents
         self.top_card = top_card
+        #records which cards have been played
+        self.played_cards = {}
         # how many cards get dealt
         self.num_initial_cards = 5
         self.won = False
@@ -22,6 +24,10 @@ class Game():
         #TODO: make this variable
         self.table = [([1],UP),([self.top_card],DOWN)]
 
+        #record that none of the cars have been played yet
+        for card in range(2,self.top_card):
+            self.played_cards[card] = False
+
         # remaining is the pile that cars are taken from after every turn
         self.remaining = possible_cards = list(range(2,self.top_card))
 
@@ -36,7 +42,7 @@ class Game():
             print("Agent", agent_idx + 1, "has cards", hand)
         print("Remaing cards are:", self.remaining)
         print("-------------------------")
-        
+
     # A round is a round of announcements after which an agent decides which stack to put their card on
     def game_loop(self):
         agent_turn = 0
@@ -50,19 +56,19 @@ class Game():
             for agent in self.agents:
                 agent.make_announcement()
             agent = self.agents[agent_turn]
-            
+
             if not agent.can_make_move():
                 print("Agent", agent_turn + 1, "can't make a move, so the game is lost")
                 print("HERE AGENT STACKS", self.agents[0].hand, self.agents[1].hand)
                 break
-            
+
 
             print("Agent had stack", self.agents[agent_turn].hand)
             card, stack_idx = agent.make_move()
             print("agent put", card, "on stack", stack_idx)
 
             agent.take_card()
-        
+
             if self.game_won():
                 print("Game is won, because all agents have 0 cards left")
                 self.won = True
@@ -80,4 +86,3 @@ class Game():
                 status = False
                 break
         return status
-            
