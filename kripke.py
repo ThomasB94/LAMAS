@@ -19,7 +19,7 @@ def createWorld(CardP1S2, CardP1S2, CardP2S1, CardP2S2):
     truth_values["P2S2" + str(CardP2S2)] =  True
     return World(name, truth_values)
 
-def initialize_model(num_agents, hands, played_cards, top_card, stacks):
+def initialize_model(num_agents, played_cards, top_card, stacks):
 
     #Ml solver objects
     worlds = []
