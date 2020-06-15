@@ -1,9 +1,18 @@
 from agent import Agent
 from constants import *
+from game_gui import GameGUI
 import random
+import pygame
 
 class Game():
     def __init__(self, num_agents, top_card, announcements):
+        pygame.init()
+        pygame.display.set_caption('hello')
+        self.size = self.width, self.height = 1000, 600
+        self.screen = pygame.display.set_mode(self.size)
+        #pygame.mouse.set_visible(0)
+        self.gui = GameGUI(self.size)
+        print(self.gui.BLACK)
         self.num_agents = num_agents
         self.top_card = top_card
         # how many cards get dealt
@@ -15,7 +24,7 @@ class Game():
         print("--------------------------------------------")
         self.setup_game()
         self.game_loop()
-
+        
     def setup_game(self):
         # setup table
         # Even (inc. 0) table cards go up initially, odd go down
@@ -42,35 +51,51 @@ class Game():
         agent_turn = 0
         round = 1
         while True:
-            print("----------------------------------")
-            print("Starting round", round)
-            print("Every agent will make an announcement, after which")
-            print("agent", agent_turn + 1, "will decide which table stack to put a card on")
-            # this doesn't do anything yet
-            for agent in self.agents:
-                agent.make_announcement()
-            agent = self.agents[agent_turn]
-            
-            if not agent.can_make_move():
-                print("Agent", agent_turn + 1, "can't make a move, so the game is lost")
-                print("HERE AGENT STACKS", self.agents[0].hand, self.agents[1].hand)
-                break
-            
+            #print('loop')
+            self.screen.fill((0,0,0))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    print('exited game')
+                    quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        print("----------------------------------")
+                        print("Starting round", round)
+                        print("Every agent will make an announcement, after which")
+                        print("agent", agent_turn + 1, "will decide which table stack to put a card on")
+                        # this doesn't do anything yet
+                        for agent in self.agents:
+                            agent.make_announcement()
+                        agent = self.agents[agent_turn]
+                        
+                        if not agent.can_make_move():
+                            print("Agent", agent_turn + 1, "can't make a move, so the game is lost")
+                            print("HERE AGENT STACKS", self.agents[0].hand, self.agents[1].hand)
+                            break
+                        
 
-            print("Agent had stack", self.agents[agent_turn].hand)
-            card, stack_idx = agent.make_move()
-            print("agent put", card, "on stack", stack_idx)
+                        print("Agent had stack", self.agents[agent_turn].hand)
+                        card, stack_idx = agent.make_move()
+                        print("agent put", card, "on stack", stack_idx)
 
-            agent.take_card()
-        
-            if self.game_won():
-                print("Game is won, because all agents have 0 cards left")
-                self.won = True
-                break
-            agent_turn = agent_turn + 1
-            if agent_turn == self.num_agents:
-                agent_turn = 0
-            round = round + 1
+                        agent.take_card()
+                    
+                        if self.game_won():
+                            print("Game is won, because all agents have 0 cards left")
+                            self.won = True
+                            break
+                        agent_turn = agent_turn + 1
+                        if agent_turn == self.num_agents:
+                            agent_turn = 0
+                        
+                        
+                        round = round + 1
+            #self.screen.fill([0,0,0])
+            self.screen.blit(self.gui.image, self.gui.pile1)
+            self.screen.blit(self.gui.image, self.gui.pile2)
+            pygame.display.update()
+
+            
 
 
     def game_won(self):
