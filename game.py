@@ -92,28 +92,7 @@ class Game():
                         
                         round = round + 1
             
-            # Render stuff
-            rendr = self.screen.blit(self.gui.image, self.gui.pile1)
-            #print(rendr)
-            rendr[0] += (rendr[2] / 3)
-            rendr[1] += (rendr[3] / 3)
-            
-            rendr2 = self.screen.blit(self.gui.image, self.gui.pile2)
-            #print(rendr2)
-            rendr2[0] += (rendr2[2] / 3)
-            rendr2[1] += (rendr2[3] / 3)
-            text = self.gui.font.render(str(self.table[0][0][0]),  1, self.gui.BLACK)
-            
-            self.screen.blit(self.gui.font.render(str(self.table[0][0][-1]), 1, self.gui.BLACK), rendr)
-            self.screen.blit(self.gui.font.render(str(self.table[1][0][-1]), 1, self.gui.BLACK), rendr2)
-
-            rendr[1] -= 50
-            rendr[0] -= 10
-            self.screen.blit(self.gui.font.render(('UP'), 1, self.gui.BLACK), rendr)
-
-            #print(self.table[1][0])
-            self.gui.show_cards(self.agents)
-            pygame.display.update()
+            self.gui.update_screen(self.table)
 
             
 
