@@ -7,12 +7,12 @@ import pygame
 class Game():
     def __init__(self, num_agents, top_card, announcements):
         pygame.init()
+        infoObject = pygame.display.Info()
         pygame.display.set_caption('hello')
-        self.size = self.width, self.height = 1000, 600
+        self.size = self.width, self.height = int(infoObject.current_w/2), int(infoObject.current_h/2)
         self.screen = pygame.display.set_mode(self.size)
         #pygame.mouse.set_visible(0)
-        self.gui = GameGUI(self.size)
-        print(self.gui.BLACK)
+        
         self.num_agents = num_agents
         self.top_card = top_card
         # how many cards get dealt
@@ -23,6 +23,7 @@ class Game():
         print(announcements, "is the announcements setting")
         print("--------------------------------------------")
         self.setup_game()
+        self.gui = GameGUI(self.size, self.agents, self.num_initial_cards, self.screen)
         self.game_loop()
         
     def setup_game(self):
@@ -52,7 +53,7 @@ class Game():
         round = 1
         while True:
             #print('loop')
-            self.screen.fill((0,0,0))
+            self.screen.fill(self.gui.bg)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     print('exited game')
@@ -90,9 +91,28 @@ class Game():
                         
                         
                         round = round + 1
-            #self.screen.fill([0,0,0])
-            self.screen.blit(self.gui.image, self.gui.pile1)
-            self.screen.blit(self.gui.image, self.gui.pile2)
+            
+            # Render stuff
+            rendr = self.screen.blit(self.gui.image, self.gui.pile1)
+            #print(rendr)
+            rendr[0] += (rendr[2] / 3)
+            rendr[1] += (rendr[3] / 3)
+            
+            rendr2 = self.screen.blit(self.gui.image, self.gui.pile2)
+            #print(rendr2)
+            rendr2[0] += (rendr2[2] / 3)
+            rendr2[1] += (rendr2[3] / 3)
+            text = self.gui.font.render(str(self.table[0][0][0]),  1, self.gui.BLACK)
+            
+            self.screen.blit(self.gui.font.render(str(self.table[0][0][-1]), 1, self.gui.BLACK), rendr)
+            self.screen.blit(self.gui.font.render(str(self.table[1][0][-1]), 1, self.gui.BLACK), rendr2)
+
+            rendr[1] -= 50
+            rendr[0] -= 10
+            self.screen.blit(self.gui.font.render(('UP'), 1, self.gui.BLACK), rendr)
+
+            #print(self.table[1][0])
+            self.gui.show_cards(self.agents)
             pygame.display.update()
 
             
