@@ -37,7 +37,7 @@ class GameGUI():
 
         # Stacks to play on
         self.pile1 = pygame.Rect((self.width/3, (self.height/2)-(self.height/8)), (self.width/2, self.height/2))
-        self.pile2 = pygame.Rect(((2*self.width/3)-(self.width/9), (self.height/2)-(self.height/8)), (self.width/2, self.height/2))  # First tuple is position, second is size.
+        self.pile2 = pygame.Rect(((2*self.width/3)-(self.width/6.2), (self.height/2)-(self.height/8)), (self.width/2, self.height/2))  # First tuple is position, second is size.
 
         self.show_cards()
     
@@ -56,6 +56,7 @@ class GameGUI():
             agent_idx = 2
 
     def update_screen(self, table):
+        self.screen.fill(self.bg)
         pile1_card = str(table[0][0][-1])
         pile2_card = str(table[1][0][-1])
         # Playing piles will be bold

@@ -11,7 +11,6 @@ class Game():
         pygame.display.set_caption('LAMAS - The Game')
         self.size = self.width, self.height = int(infoObject.current_w/2), int(infoObject.current_h/2)
         self.screen = pygame.display.set_mode(self.size)
-        #pygame.mouse.set_visible(0)
         
         self.num_agents = num_agents
         self.top_card = top_card
@@ -53,8 +52,6 @@ class Game():
         agent_turn = 0
         round = 1
         while True:
-            #print('loop')
-            self.screen.fill(self.gui.bg)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     print('exited game')
