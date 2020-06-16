@@ -1,6 +1,6 @@
 # LAMAS 2020 - The Game
 
-An explanation on what is implemented here can be found on https://lamas-2020.web.app/.
+An explanation on what is implemented here can be found [here](https://lamas-2020.web.app/).
 
 ## Run instructions
 - Clone the repo
