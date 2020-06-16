@@ -1,4 +1,5 @@
 from mlsolver.kripke import World, KripkeStructure
+from mlsolver.formula import *
 
 # do some kripke stuff here
 

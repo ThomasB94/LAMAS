@@ -1,3 +1,6 @@
+from mlsolver.kripke import World, KripkeStructure
+from mlsolver.formula import *
+
 # do announcements stuff here, such as reducing the kripke model
 
     # Number of announcements per turn}:
@@ -22,7 +25,8 @@ def makePossibilityList(ks, top_card, prefix):
     possibleNumbers = []
     for number in range(2, top_card):
         if checkPossible(ks, Atom(prefix + str(number))):
-            possibleNumbers.append(number)
+            possibleNumbers.append(number)    if not exclusionSetS1
+
     return possibleNumbers
 
 def split_list(a_list):
@@ -59,7 +63,6 @@ def make_range_announcement(agent, game, ks):
     posStack2 = makePossibilityList(ks, game.top_card, Prefix2)
 
 
-
     # divide set into announcement values
     firstHalf, secondHalf = split_list(posStack1)
     if s1Best in firstHalf:
@@ -73,10 +76,22 @@ def make_range_announcement(agent, game, ks):
     else:
         exclusionSetS2 = firstHalf
 
-    # Construct announcement
-    if not exclusionSetS1
 
-    pass
+    # Construct announcement
+    if exclusionSetS1:
+        announcement = Not(Atom(prefix1 + str(exclusionSetS1[1])))
+        for index in range(1, len(exclusionSetS1)):
+            announcement = And(announcement, Not(Atom(prefix1 + str(exclusionSetS1[index]))))
+        ks = ks.solve(announcement)
+
+    # Construct announcement
+    if exclusionSetS2:
+        announcement = Not(Atom(prefix2 + str(exclusionSetS2[1])))
+        for index in range(1, len(exclusionSetS1)):
+            announcement = And(announcement, Not(Atom(prefix2 + str(exclusionSetS2[index]))))
+        ks = ks.solve(announcement)
+
+    return ks
 
 def make_relative_announcement(agent, game, kripke):
     pass
