@@ -12,8 +12,10 @@ class GameGUI():
         self.clock = pygame.time.Clock()
         self.BLACK = (0, 0, 0)
         self.WHITE = (255, 255, 255)
-        self.RED = (200, 25, 37)
-        self.bg = (114, 160, 193)
+        self.RED = (110, 42, 81)
+        self.RED_SHADE = (38, 14, 28)
+        self.bg = (42, 81, 110)
+        self.pile_colour = (110, 71, 42)
         self.size = size
         self.width, self.height = size
         
@@ -23,9 +25,15 @@ class GameGUI():
         self.image = pygame.Surface((self.width/10, self.height/4))  # The tuple represent size.
         self.image.fill(self.WHITE)
 
+        self.border_pile = pygame.Surface(((self.width/10)+4, (self.height/4)+4))
+        self.border_pile.fill(self.BLACK)
+
         # Piles to put cards on
         self.image_pile = pygame.Surface((self.width/8, self.height/3.8))  # The tuple represent size.
         self.image_pile.fill(self.RED)
+
+        self.image_pile_border = pygame.Surface(((self.width/8)+2, (self.height/3.8)+2))  # The tuple represent size.
+        self.image_pile_border.fill(self.RED_SHADE)
 
         # Stacks to play on
         self.pile1 = pygame.Rect((self.width/3, (self.height/2)-(self.height/8)), (self.width/2, self.height/2))
@@ -44,7 +52,7 @@ class GameGUI():
                     pile = pygame.Rect((linspace[idx], self.height/20), (self.width/2, self.height/2))
                 elif agent_idx == 2:
                     pile = pygame.Rect((linspace[idx], 14*self.height/20), (self.width/2, self.height/2))
-                self.render_card(str(card), self.image, pile)
+                self.render_card(str(card), self.image, pile, self.border_pile)
             agent_idx = 2
 
     def update_screen(self, table):
@@ -53,15 +61,16 @@ class GameGUI():
         # Playing piles will be bold
         self.font.set_bold(True)
         # Render stuff
-        self.render_card(pile1_card, self.image_pile, self.pile1, 'UP')
-        self.render_card(pile2_card, self.image_pile, self.pile2, 'DOWN')
+        self.render_card(pile1_card, self.image_pile, self.pile1, self.image_pile_border, 'UP')
+        self.render_card(pile2_card, self.image_pile, self.pile2, self.image_pile_border, 'DOWN')
         # Deactive bold text
         self.font.set_bold(False)
         # Render the player cards
         self.show_cards()
         pygame.display.update()
         
-    def render_card(self, card_value, source, destination, pile_text=None):
+    def render_card(self, card_value, source, destination, shade_source, pile_text=None):
+        self.screen.blit(shade_source, destination)
         render_rect = self.screen.blit(source, destination)
         text_w, text_h = self.font.size(card_value)
         render_rect[0] += (render_rect[2] / 2) - (text_w/2)
