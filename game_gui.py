@@ -54,7 +54,7 @@ class GameGUI():
         self.font.set_bold(True)
         # Render stuff
         self.render_card(pile1_card, self.image_pile, self.pile1, 'UP')
-        self.render_card(pile2_card, self.image_pile, self.pile2)
+        self.render_card(pile2_card, self.image_pile, self.pile2, 'DOWN')
         # Deactive bold text
         self.font.set_bold(False)
         # Render the player cards
@@ -66,10 +66,15 @@ class GameGUI():
         text_w, text_h = self.font.size(card_value)
         render_rect[0] += (render_rect[2] / 2) - (text_w/2)
         render_rect[1] += (render_rect[3] / 2) - text_h
-        new_rect = self.screen.blit(self.font.render(card_value, True, self.BLACK), render_rect)
-        #if pile_text is not None:
+        self.screen.blit(self.font.render(card_value, True, self.BLACK), render_rect)
+        if pile_text is not None:
             #render_rect = self.screen.blit(source, destination)
-            #text_w, text_h = self.font.size(pile_text)
-            #render_rect[0] += (render_rect[2] / 2) - (text_w/2)
-            #render_rect[1] += (render_rect[3] / 2) + (text_h)
-            #self.screen.blit(self.font.render(pile_text, True, self.BLACK), new_rect)
+            render_rect[0] -= (render_rect[2] / 2) - (text_w/2)
+            render_rect[1] -= (render_rect[3] / 2) - text_h
+            text_font = pygame.font.SysFont('Arial', 30)
+            text_w, text_h = text_font.size(pile_text)
+            render_rect[0] += (render_rect[2] / 2) - (text_w/2)
+            render_rect[1] += 2*text_h
+            text_font.set_underline(True)
+            self.screen.blit(text_font.render(pile_text, True, self.BLACK), render_rect)
+            text_font.set_underline(False)

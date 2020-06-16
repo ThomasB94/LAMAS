@@ -8,7 +8,7 @@ class Game():
     def __init__(self, num_agents, top_card, announcements):
         pygame.init()
         infoObject = pygame.display.Info()
-        pygame.display.set_caption('hello')
+        pygame.display.set_caption('LAMAS - The Game')
         self.size = self.width, self.height = int(infoObject.current_w/2), int(infoObject.current_h/2)
         self.screen = pygame.display.set_mode(self.size)
         #pygame.mouse.set_visible(0)
@@ -18,6 +18,7 @@ class Game():
         # how many cards get dealt
         self.num_initial_cards = 5
         self.won = False
+        self.lost = False
         self.announcements = announcements
         print("Setting up game with", num_agents, "agents and", top_card, "as the highest cards")
         print(announcements, "is the announcements setting")
@@ -72,9 +73,9 @@ class Game():
                         if not agent.can_make_move():
                             print("Agent", agent_turn + 1, "can't make a move, so the game is lost")
                             print("HERE AGENT STACKS", self.agents[0].hand, self.agents[1].hand)
+                            self.lost = True
                             break
                         
-
                         print("Agent had stack", self.agents[agent_turn].hand)
                         card, stack_idx = agent.make_move()
                         print("agent put", card, "on stack", stack_idx)
@@ -91,9 +92,16 @@ class Game():
                         
                         
                         round = round + 1
+                    if event.key == pygame.K_RETURN:
+                        print('hi')
+                        self.setup_game()
+                        self.game_loop()
+                        self.gui.update_screen(self.table)
             
-            self.gui.update_screen(self.table)
 
+            self.gui.update_screen(self.table)
+            if self.won is True or self.lost is True:
+                break
             
 
 
