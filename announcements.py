@@ -25,7 +25,7 @@ def makePossibilityList(ks, top_card, prefix):
     possibleNumbers = []
     for number in range(2, top_card):
         if checkPossible(ks, Atom(prefix + str(number))):
-            possibleNumbers.append(number)    if not exclusionSetS1
+            possibleNumbers.append(number)
 
     return possibleNumbers
 
