@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "lamas-2020": {
+      "hosting": {
+        "routing-app": [
+          "lamas-2020"
+        ]
+      }
+    }
+  }
+}
