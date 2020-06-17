@@ -1,5 +1,6 @@
 from mlsolver.kripke import World, KripkeStructure
 from mlsolver.formula import *
+import numpy as np
 
 # do announcements stuff here, such as reducing the kripke model
 
@@ -26,7 +27,6 @@ def makePossibilityList(ks, top_card, prefix):
     for number in range(2, top_card):
         if checkPossible(ks, Atom(prefix + str(number))):
             possibleNumbers.append(number)
-
     return possibleNumbers
 
 def split_list(a_list):
@@ -43,7 +43,7 @@ def getBestCards(agent, game):
 
     #determine best card for stack 2
     stack = game.table[1]
-    diff = stack[0][-1] - np.array(self.hand)
+    diff = stack[0][-1] - np.array(agent.hand)
     diff[diff < 0] = 99999
     idx = diff.argmin()
     s2Best = agent.hand[idx]
@@ -56,11 +56,11 @@ def make_range_announcement(agent, game, ks):
     s1Best, s2Best = getBestCards(agent, game)
 
     # Set the prefix to look at the stacks for player 1
-    prefix1 = "P" + str(agent.id) + "S1"
-    prefix2 = "P" + str(agent.id) + "S2"
+    prefix1 = "P" + str(agent.id + 1) + "S1"
+    prefix2 = "P" + str(agent.id + 1) + "S2"
 
     posStack1 = makePossibilityList(ks, game.top_card, prefix1)
-    posStack2 = makePossibilityList(ks, game.top_card, Prefix2)
+    posStack2 = makePossibilityList(ks, game.top_card, prefix2)
 
 
     # divide set into announcement values
@@ -79,14 +79,14 @@ def make_range_announcement(agent, game, ks):
 
     # Construct announcement
     if exclusionSetS1:
-        announcement = Not(Atom(prefix1 + str(exclusionSetS1[1])))
+        announcement = Not(Atom(prefix1 + str(exclusionSetS1[0])))
         for index in range(1, len(exclusionSetS1)):
             announcement = And(announcement, Not(Atom(prefix1 + str(exclusionSetS1[index]))))
         ks = ks.solve(announcement)
 
     # Construct announcement
     if exclusionSetS2:
-        announcement = Not(Atom(prefix2 + str(exclusionSetS2[1])))
+        announcement = Not(Atom(prefix2 + str(exclusionSetS2[0])))
         for index in range(1, len(exclusionSetS1)):
             announcement = And(announcement, Not(Atom(prefix2 + str(exclusionSetS2[index]))))
         ks = ks.solve(announcement)
