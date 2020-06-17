@@ -2,8 +2,8 @@ from game import Game
 
 def main():
     won_counter = 0
-    for _ in range(1):
-        game = Game(2, 20, 'range')
+    for _ in range(1000):
+        game = Game(2, 10, 'range')
         if game.won:
             won_counter = won_counter + 1
     print("+++++++++++++++++++++++++++++++++++++++")
