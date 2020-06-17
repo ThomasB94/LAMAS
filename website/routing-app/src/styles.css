@@ -5,3 +5,18 @@
 .body {
     background-color: blueviolet;
 }
+
+.mycustom-jumbotron {
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  width: 98vw;
+  height: auto;
+}
+
+.main-text {
+  width: 40vw;
+  margin: auto;
+  font-size: larger;
+}
