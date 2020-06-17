@@ -9,7 +9,7 @@ class Game():
         #records which cards have been played
         self.played_cards = {}
         # how many cards get dealt
-        self.num_initial_cards = 5
+        self.num_initial_cards = 2
         self.won = False
         self.announcements = announcements
         print("Setting up game with", num_agents, "agents and", top_card, "as the highest cards")
