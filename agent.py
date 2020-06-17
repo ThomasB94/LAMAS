@@ -87,4 +87,5 @@ class Agent():
         closest_down = closest[1]
         other_up_poss = [3,4,5,6,7,8]
         other_down_poss = [3,5]
+        
 
