@@ -1,5 +1,6 @@
 from agent import Agent
 from constants import *
+from kripke import initialize_model
 import random
 
 class Game():
@@ -8,10 +9,11 @@ class Game():
         self.top_card = top_card
         #records which cards have been played
         self.played_cards = {}
+        self.model = None
         # how many cards get dealt
         self.num_initial_cards = 2
         self.won = False
-        self.announcements = announcements
+        self.announcement_type = announcements
         print("Setting up game with", num_agents, "agents and", top_card, "as the highest cards")
         print(announcements, "is the announcements setting")
         print("--------------------------------------------")
@@ -52,9 +54,15 @@ class Game():
             print("Starting round", round)
             print("Every agent will make an announcement, after which")
             print("agent", agent_turn + 1, "will decide which table stack to put a card on")
+
+            print("Make model")
+            self.model = initialize_model(self.num_agents, self.played_cards, self.top_card, self.table)
+
+            print("Make an announcement")
             # this doesn't do anything yet
             for agent in self.agents:
-                agent.make_announcement()
+                if agent != self.agents[agent_turn]:
+                    self.model = agent.make_announcement()
             agent = self.agents[agent_turn]
 
             if not agent.can_make_move():
