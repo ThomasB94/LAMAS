@@ -3,6 +3,7 @@ from constants import *
 from kripke import initialize_model
 from announcements import makePossibilityList
 from announcements import make_announcement_of_type
+import random
 
 
 class Agent():
@@ -109,5 +110,23 @@ class Agent():
             possible_down = list(set(possible_down))
             print("UP::::::::", possible_up)
             print("DOWN::::::::", possible_down)
+            other_closest_up = min(possible_up)
+            other_closest_down = max(possible_down)
+            
+            if closest_up < other_closest_up:
+                # here we have better cards for both stacks, so we make a random choice
+                if closest_down > closest_down:
+                    return random.randint(0,1)
+                else:
+                    # we have better cards for the up stack
+                    return 0
+            elif closest_down > closest_down:
+                # we have better cards for the down stack
+                return 1
+            else:
+                # we have the worst cards for both stacks, again we make a random choice
+                return random.randint(0,1)
+
+
             
                     
