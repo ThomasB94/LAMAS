@@ -1,18 +1,23 @@
 * {
     font-family: 'Muli', sans-serif;
+    color: black;
 }
 
 .body {
-    background-color: blueviolet;
+  text-align:center;
+  background-color: #685330;
 }
 
 .mycustom-jumbotron {
+  background-color: #dadfe6;
+  opacity: 1;
   margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
   width: 98vw;
   height: auto;
+  border: 1px solid #b6c1cd;
 }
 
 .main-text {

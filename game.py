@@ -3,6 +3,7 @@ from constants import *
 from game_gui import GameGUI
 import random
 import pygame
+import time
 
 class Game():
     def __init__(self, num_agents, top_card, announcements):
@@ -89,19 +90,11 @@ class Game():
                         
                         
                         round = round + 1
-                    if event.key == pygame.K_RETURN:
-                        print('hi')
-                        self.setup_game()
-                        self.game_loop()
-                        self.gui.update_screen(self.table)
             
-
             self.gui.update_screen(self.table)
-            if self.won is True or self.lost is True:
-                break
-            
-
-
+            if self.won or self.lost:
+                self.end_game(self.won, self.lost)
+                                            
     def game_won(self):
         status = True
         for agent in self.agents:
@@ -109,4 +102,20 @@ class Game():
                 status = False
                 break
         return status
+    
+    def end_game(self, won=False, lost=False):
+        if won:
+            end_text = 'The game has been won! Congratulations!'
+        if lost:
+            end_text = 'The game is lost. Maybe next time...'
+        self.gui.display_game_ending(end_text)
+        time.sleep(1)
+        while True: 
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    print('exited game')
+                    quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        quit()
             

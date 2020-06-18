@@ -44,6 +44,7 @@ class GameGUI():
     def show_cards(self):
         agent_idx = 1
         for agent in self.agents:
+            agent.hand.sort()
             spacing = len(agent.hand) + 1
             linspace = np.linspace(self.width/spacing, self.width - self.width/spacing, spacing)
             linspace = [int(lin) for lin in linspace]
@@ -88,3 +89,15 @@ class GameGUI():
             text_font.set_underline(True)
             self.screen.blit(text_font.render(pile_text, True, self.BLACK), render_rect)
             text_font.set_underline(False)
+    
+    def display_game_ending(self, end_text):
+        self.screen.fill(self.bg)
+        end_img = pygame.Surface((self.width/2, self.height/4))  # The tuple represent size.
+        end_img.fill(self.bg)
+        text_pos = pygame.Rect((self.width/8, (self.height/2)-(self.height/8)), (self.width/2, self.height/2))
+        render_rect = self.screen.blit(end_img, text_pos)
+        text_font = pygame.font.SysFont('Arial', 50)
+        #text_w, text_h = text_font.size(text)
+        text_font.set_underline(True)
+        self.screen.blit(text_font.render(end_text, True, self.BLACK), render_rect)
+        pygame.display.update()        
