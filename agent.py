@@ -2,6 +2,8 @@ import numpy as np
 from constants import *
 from kripke import initialize_model
 from announcements import makePossibilityList
+from announcements import make_announcement_of_type
+
 
 class Agent():
     def __init__(self, id, hand, game):
@@ -11,7 +13,7 @@ class Agent():
         self.game = game
 
     def make_announcement(self):
-        pass
+        return make_announcement_of_type(self, self.game, self.game.model, self.game.announcement_type)
 
     def make_move(self):
         # return the card that has been placed and on which stack it has been placed

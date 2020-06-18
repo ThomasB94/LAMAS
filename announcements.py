@@ -1,6 +1,7 @@
-from mlsolver.kripke import World, KripkeStructure
+from mlsolver.kripke import *
 from mlsolver.formula import *
 import numpy as np
+import copy
 
 # do announcements stuff here, such as reducing the kripke model
 
@@ -49,8 +50,19 @@ def getBestCards(agent, game):
     s2Best = agent.hand[idx]
     return s1Best, s2Best
 
+
+def removeWorlds(ks, formula):
+    ksCopy = KripkeStructure(ks.worlds.copy(), copy.deepcopy(ks.relations))
+    notcompliant = ksCopy.nodes_not_follow_formula(formula)
+    for world in notcompliant:
+        ksCopy.remove_node_by_name(world)
+    return ksCopy
+
 def make_range_announcement(agent, game, ks):
     # find possible numbers and ad to set
+
+    if not agent.hand:
+        return ks
 
     # look for the best cards that you have
     s1Best, s2Best = getBestCards(agent, game)
@@ -78,20 +90,28 @@ def make_range_announcement(agent, game, ks):
 
 
     # Construct announcement
+    print("Solve1")
     if exclusionSetS1:
         announcement = Not(Atom(prefix1 + str(exclusionSetS1[0])))
         for index in range(1, len(exclusionSetS1)):
             announcement = And(announcement, Not(Atom(prefix1 + str(exclusionSetS1[index]))))
-        ks = ks.solve(announcement)
+        ks = removeWorlds(ks, announcement)
 
+    print("Solve2")
     # Construct announcement
     if exclusionSetS2:
         announcement = Not(Atom(prefix2 + str(exclusionSetS2[0])))
-        for index in range(1, len(exclusionSetS1)):
+        for index in range(1, len(exclusionSetS2)):
             announcement = And(announcement, Not(Atom(prefix2 + str(exclusionSetS2[index]))))
-        ks = ks.solve(announcement)
+        ks = removeWorlds(ks, announcement)
 
     return ks
 
 def make_relative_announcement(agent, game, kripke):
     pass
+
+
+def make_announcement_of_type(agent, game, ks, type):
+    if type == 'range':
+        return make_range_announcement(agent, game, ks)
+    return None
