@@ -1,3 +1,18 @@
+.title-text {
+  font-size: x-large;
+}
+
+.title {
+  text-shadow: 2px 2px #000000;
+  font-weight: bold;
+  color: #009f6b;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
 .names-text {
   font-size: medium;
 }
