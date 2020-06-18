@@ -1,6 +1,7 @@
 import numpy as np
 from constants import *
 from kripke import initialize_model
+from announcements import makePossibilityList
 
 class Agent():
     def __init__(self, id, hand, game):
@@ -88,4 +89,10 @@ class Agent():
         other_up_poss = [3,4,5,6,7,8]
         other_down_poss = [3,5]
         
+        prefix1 = "P" + str(self.id + 1) + "S1"
+        prefix2 = "P" + str(self.id + 1) + "S2"
 
+        posStack1 = makePossibilityList(example, self.game.top_card, prefix1)
+        posStack2 = makePossibilityList(example, self.game.top_card, prefix2)
+        print("SHould be possible cards for other agent")
+        print(posStack1, posStack2)
