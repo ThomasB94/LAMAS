@@ -82,17 +82,30 @@ class Agent():
         return closest
 
     def determine_strategy(self):
-        example = initialize_model(2, self.game.played_cards, self.game.top_card, self.game.table)
+        # determines which stack a card should be put on
         closest = self.get_closest_cards()
-        closest_up = closest[0]
-        closest_down = closest[1]
-        other_up_poss = [3,4,5,6,7,8]
-        other_down_poss = [3,5]
-        
-        prefix1 = "P" + str(self.id + 1) + "S1"
-        prefix2 = "P" + str(self.id + 1) + "S2"
-
-        posStack1 = makePossibilityList(example, self.game.top_card, prefix1)
-        posStack2 = makePossibilityList(example, self.game.top_card, prefix2)
-        print("SHould be possible cards for other agent")
-        print(posStack1, posStack2)
+        closest_up = closest[0][0]
+        closest_down = closest[1][0]
+        if closest_up == 99999:
+            return 1
+        elif closest_down == 99999:
+            return 0
+        else:
+            ks = initialize_model(2, self.game.played_cards, self.game.top_card, self.game.table)
+            all_worlds = ks.worlds
+            possible_up = []
+            possible_down = []
+            prefix = str(closest_up) + '/' + str(closest_down)
+            print("PREFIXXXX_______________", prefix)
+            for world in all_worlds:
+                if prefix == world.name[0:3]:
+                    print(world.name)
+                    possible_up.append(world.name[4])
+                    possible_down.append(world.name[6])
+            
+            possible_up = list(set(possible_up))
+            possible_down = list(set(possible_down))
+            print("UP::::::::", possible_up)
+            print("DOWN::::::::", possible_down)
+            
+                    
