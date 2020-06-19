@@ -1,5 +1,6 @@
 .title-text {
   font-size: x-large;
+  margin: auto;
 }
 
 .title {
@@ -15,6 +16,7 @@
 
 .names-text {
   font-size: medium;
+  margin: auto;
 }
 
 
@@ -26,7 +28,11 @@
   font-size: large;
 }
 
-
 .active {
   border-bottom: 2px solid rgb(236, 236, 236, 0.5);
+}
+
+.navbar {
+  display: flex;
+  background: #315f80;
 }
