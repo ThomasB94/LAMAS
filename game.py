@@ -10,6 +10,7 @@ class Game():
         #records which cards have been played
         self.played_cards = {}
         self.model = None
+        self.removedWorlds = 0
         # how many cards get dealt
         self.num_initial_cards = 2
         self.won = False
