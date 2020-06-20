@@ -1,6 +1,7 @@
 from agent import Agent
 from constants import *
 from game_gui import GameGUI
+from kripke import initialize_model
 import random
 import pygame
 import time
@@ -15,11 +16,15 @@ class Game():
         
         self.num_agents = num_agents
         self.top_card = top_card
+        #records which cards have been played
+        self.played_cards = {}
+        self.model = None
+        self.removedWorlds = 0
         # how many cards get dealt
-        self.num_initial_cards = 5
+        self.num_initial_cards = 2
         self.won = False
         self.lost = False
-        self.announcements = announcements
+        self.announcement_type = announcements
         print("Setting up game with", num_agents, "agents and", top_card, "as the highest cards")
         print(announcements, "is the announcements setting")
         print("--------------------------------------------")
@@ -32,6 +37,10 @@ class Game():
         # Even (inc. 0) table cards go up initially, odd go down
         #TODO: make this variable
         self.table = [([1],UP),([self.top_card],DOWN)]
+
+        #record that none of the cars have been played yet
+        for card in range(2,self.top_card):
+            self.played_cards[card] = False
 
         # remaining is the pile that cars are taken from after every turn
         self.remaining = possible_cards = list(range(2,self.top_card))
@@ -47,7 +56,7 @@ class Game():
             print("Agent", agent_idx + 1, "has cards", hand)
         print("Remaing cards are:", self.remaining)
         print("-------------------------")
-        
+
     # A round is a round of announcements after which an agent decides which stack to put their card on
     def game_loop(self):
         agent_turn = 0
