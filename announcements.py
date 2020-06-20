@@ -35,7 +35,8 @@ def split_list(list):
     return list[:half], list[half:]
 
 def split_list_index(list, index):
-    return list[:index], list[index:]a_
+    index = min(index, len(list))
+    return list[:index], list[index:]
 
 def getBestCards(agent, game):
     #determine best card for stack 1
@@ -59,7 +60,7 @@ def removeWorlds(ks, formula):
     notcompliant = ksCopy.nodes_not_follow_formula(formula)
     for world in notcompliant:
         ksCopy.remove_node_by_name(world)
-    return ksCopy
+    return ksCopy, len(notcompliant)
 
 def make_range_announcement(agent, game, ks, type):
     # find possible numbers and ad to set
@@ -81,8 +82,8 @@ def make_range_announcement(agent, game, ks, type):
     # divide set into announcement values
     if type == 'range':
         firstHalf, secondHalf = split_list(posStack1)
-    elif type == 'absolute'
-        firstHalf, secondHalf = split_list_index(posStack1)
+    elif type == 'absolute':
+        firstHalf, secondHalf = split_list_index(posStack1, 3)
     if s1Best in firstHalf:
         exclusionSetS1 = secondHalf
     else:
@@ -90,8 +91,8 @@ def make_range_announcement(agent, game, ks, type):
 
     if type == 'range':
         firstHalf, secondHalf = split_list(posStack2)
-    elif type == 'absolute'
-        firstHalf, secondHalf = split_list_index(posStack2)
+    elif type == 'absolute':
+        firstHalf, secondHalf = split_list_index(posStack2, 3)
     if s2Best in firstHalf:
         exclusionSetS2 = secondHalf
     else:
@@ -103,7 +104,8 @@ def make_range_announcement(agent, game, ks, type):
         announcement = Not(Atom(prefix1 + str(exclusionSetS1[0])))
         for index in range(1, len(exclusionSetS1)):
             announcement = And(announcement, Not(Atom(prefix1 + str(exclusionSetS1[index]))))
-        ks = removeWorlds(ks, announcement)
+        ks, numRemoved = removeWorlds(ks, announcement)
+        game.removedWorlds = game.removedWorlds + numRemoved
 
     print("Solve2")
     # Construct announcement
@@ -111,14 +113,11 @@ def make_range_announcement(agent, game, ks, type):
         announcement = Not(Atom(prefix2 + str(exclusionSetS2[0])))
         for index in range(1, len(exclusionSetS2)):
             announcement = And(announcement, Not(Atom(prefix2 + str(exclusionSetS2[index]))))
-        ks = removeWorlds(ks, announcement)
+        ks, numRemoved = removeWorlds(ks, announcement)
+        game.removedWorlds = game.removedWorlds + numRemoved
 
     return ks
 
 
 def make_announcement_of_type(agent, game, ks, type):
-    if type == 'range':
-        return make_range_announcement(agent, game, ks, type)
-    if type ==  'absolute':
-        return make_range_announcement(agent, game, ks, type)
-    return None
+    return make_range_announcement(agent, game, ks, type)
