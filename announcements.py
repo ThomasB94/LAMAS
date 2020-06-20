@@ -30,9 +30,12 @@ def makePossibilityList(ks, top_card, prefix):
             possibleNumbers.append(number)
     return possibleNumbers
 
-def split_list(a_list):
-    half = len(a_list)//2
-    return a_list[:half], a_list[half:]
+def split_list(list):
+    half = len(list)//2
+    return list[:half], list[half:]
+
+def split_list_index(list, index):
+    return list[:index], list[index:]a_
 
 def getBestCards(agent, game):
     #determine best card for stack 1
@@ -58,7 +61,7 @@ def removeWorlds(ks, formula):
         ksCopy.remove_node_by_name(world)
     return ksCopy
 
-def make_range_announcement(agent, game, ks):
+def make_range_announcement(agent, game, ks, type):
     # find possible numbers and ad to set
 
     if not agent.hand:
@@ -76,18 +79,23 @@ def make_range_announcement(agent, game, ks):
 
 
     # divide set into announcement values
-    firstHalf, secondHalf = split_list(posStack1)
+    if type == 'range':
+        firstHalf, secondHalf = split_list(posStack1)
+    elif type == 'absolute'
+        firstHalf, secondHalf = split_list_index(posStack1)
     if s1Best in firstHalf:
         exclusionSetS1 = secondHalf
     else:
         exclusionSetS1 = firstHalf
 
-    firstHalf, secondHalf = split_list(posStack2)
+    if type == 'range':
+        firstHalf, secondHalf = split_list(posStack2)
+    elif type == 'absolute'
+        firstHalf, secondHalf = split_list_index(posStack2)
     if s2Best in firstHalf:
         exclusionSetS2 = secondHalf
     else:
         exclusionSetS2 = firstHalf
-
 
     # Construct announcement
     print("Solve1")
@@ -107,11 +115,10 @@ def make_range_announcement(agent, game, ks):
 
     return ks
 
-def make_relative_announcement(agent, game, kripke):
-    pass
-
 
 def make_announcement_of_type(agent, game, ks, type):
     if type == 'range':
-        return make_range_announcement(agent, game, ks)
+        return make_range_announcement(agent, game, ks, type)
+    if type ==  'absolute':
+        return make_range_announcement(agent, game, ks, type)
     return None
