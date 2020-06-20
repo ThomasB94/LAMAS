@@ -120,7 +120,7 @@ class Agent():
                 else:
                     # we have better cards for the up stack
                     return 0
-            elif closest_down > closest_down:
+            elif closest_down > other_closest_down:
                 # we have better cards for the down stack
                 return 1
             else:
