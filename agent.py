@@ -98,7 +98,7 @@ class Agent():
         elif closest_down == 99999:
             return 0
         else:
-            ks = initialize_model(2, self.game.played_cards, self.game.top_card, self.game.table)
+            ks = self.game.model
             all_worlds = ks.worlds
             possible_up = []
             possible_down = []
