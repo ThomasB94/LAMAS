@@ -18,25 +18,29 @@ class Agent():
 
     def make_move(self):
         # return the card that has been placed and on which stack it has been placed
-        diffs = []
-        for stack in self.game.table:
-            print(stack)
-            if stack[1] == UP:
-                # difference between hand cards and stack card
-                diff = np.array(self.hand) - stack[0][-1]
-                diff[diff < 0] = 99999
-                idx = diff.argmin()
-                diff = diff[idx]
-                diffs.append((diff, idx, UP))
-            elif stack[1] == DOWN:
-                diff = stack[0][-1] - np.array(self.hand)
-                diff[diff < 0] = 99999
-                idx = diff.argmin()
-                diff = diff[idx]
-                diffs.append((diff, idx, DOWN))
-        stack_idx = np.array(diffs).argmin(axis=0)[0]
-        (_, hand_idx, _) = min(diffs, key=lambda x:x[0])
-        card = self.hand.pop(hand_idx)
+        # diffs = []
+        # for stack in self.game.table:
+        #     print(stack)
+        #     if stack[1] == UP:
+        #         # difference between hand cards and stack card
+        #         diff = np.array(self.hand) - stack[0][-1]
+        #         diff[diff < 0] = 99999
+        #         idx = diff.argmin()
+        #         diff = diff[idx]
+        #         diffs.append((diff, idx, UP))
+        #     elif stack[1] == DOWN:
+        #         diff = stack[0][-1] - np.array(self.hand)
+        #         diff[diff < 0] = 99999
+        #         idx = diff.argmin()
+        #         diff = diff[idx]
+        #         diffs.append((diff, idx, DOWN))
+        # stack_idx = np.array(diffs).argmin(axis=0)[0]
+        # (_, hand_idx, _) = min(diffs, key=lambda x:x[0])
+        # card = self.hand.pop(hand_idx)
+        # self.game.table[stack_idx][0].append(card)
+        # self.game.played_cards[card] = True
+        stack_idx, card = self.determine_strategy()
+        self.hand.remove(card)
         self.game.table[stack_idx][0].append(card)
         self.game.played_cards[card] = True
         return (card, stack_idx)
@@ -85,7 +89,7 @@ class Agent():
         return closest
 
     def determine_strategy(self):
-        # determines which stack a card should be put on
+        # determines which stack a card should be put on and the card that should be put on the table
         closest = self.get_closest_cards()
         closest_up = closest[0][0]
         closest_down = closest[1][0]
@@ -103,29 +107,42 @@ class Agent():
             for world in all_worlds:
                 if prefix == world.name[0:3]:
                     print(world.name)
-                    possible_up.append(world.name[4])
-                    possible_down.append(world.name[6])
+                    possible_up.append(int(world.name[4]))
+                    possible_down.append(int(world.name[6]))
             
             possible_up = list(set(possible_up))
             possible_down = list(set(possible_down))
             print("UP::::::::", possible_up)
             print("DOWN::::::::", possible_down)
+            if possible_up == []:
+                return 0, closest_up
+            if possible_down == []:
+                return 1, closest_down
             other_closest_up = min(possible_up)
             other_closest_down = max(possible_down)
             
             if closest_up < other_closest_up:
                 # here we have better cards for both stacks, so we make a random choice
                 if closest_down > closest_down:
-                    return random.randint(0,1)
+                    r = random.randint(0,1)
+                    if r == 0:
+                        return 0, closest_up
+                    else:
+                        return 1, closest_down
                 else:
                     # we have better cards for the up stack
-                    return 0
+                    return 0, closest_up
             elif closest_down > other_closest_down:
                 # we have better cards for the down stack
-                return 1
+                return 1, closest_down
             else:
                 # we have the worst cards for both stacks, again we make a random choice
-                return random.randint(0,1)
+                r = random.randint(0,1)
+                if r == 0:
+                    return 0, closest_up
+                else:
+                    return 1, closest_down
+
 
 
             
