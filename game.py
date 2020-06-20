@@ -25,7 +25,7 @@ class Game():
         self.won = False
         self.lost = False
         self.announcement_type = announcements
-        print("Setting up game with", num_agents, "agents and", top_card, "as the highest cards")
+        print("Setting up game with", num_agents, "agents and", top_card, "as the highest card.")
         print(announcements, "is the announcements setting")
         print("--------------------------------------------")
         self.setup_game()
