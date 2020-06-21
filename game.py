@@ -8,12 +8,6 @@ import time
 
 class Game():
     def __init__(self, num_agents, top_card, announcements):
-        pygame.init()
-        infoObject = pygame.display.Info()
-        pygame.display.set_caption('LAMAS - The Game')
-        self.size = self.width, self.height = int(infoObject.current_w/2), int(infoObject.current_h/2)
-        self.screen = pygame.display.set_mode(self.size)
-        
         self.num_agents = num_agents
         self.top_card = top_card
         #records which cards have been played
@@ -29,7 +23,7 @@ class Game():
         print(announcements, "is the announcements setting")
         print("--------------------------------------------")
         self.setup_game()
-        self.gui = GameGUI(self.size, self.agents, self.num_initial_cards, self.screen)
+        self.gui = GameGUI(self.agents, self.num_initial_cards)
         self.game_loop()
         
     def setup_game(self):
@@ -72,9 +66,14 @@ class Game():
                         print("Starting round", round)
                         print("Every agent will make an announcement, after which")
                         print("agent", agent_turn + 1, "will decide which table stack to put a card on")
+
+                        print("Make model")
+                        self.model = initialize_model(self.num_agents, self.played_cards, self.top_card, self.table)
+                        print("Make an announcement")
                         # this doesn't do anything yet
                         for agent in self.agents:
-                            agent.make_announcement()
+                            if agent != self.agents[agent_turn]:
+                                self.model = agent.make_announcement()
                         agent = self.agents[agent_turn]
                         
                         if not agent.can_make_move():
@@ -85,7 +84,7 @@ class Game():
                         
                         print("Agent had stack", self.agents[agent_turn].hand)
                         card, stack_idx = agent.make_move()
-                        print("agent put", card, "on stack", stack_idx)
+                        print("agent ", agent_turn, "put", card, "on stack", stack_idx)
 
                         agent.take_card()
                     
@@ -100,8 +99,9 @@ class Game():
                         
                         round = round + 1
             
-            self.gui.update_screen(self.table)
+            self.gui.update_screen(self.table, self.remaining)
             if self.won or self.lost:
+                print('Number of removed worlds: {}'.format(self.removedWorlds))
                 self.end_game(self.won, self.lost)
                                             
     def game_won(self):

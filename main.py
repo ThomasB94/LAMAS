@@ -3,9 +3,9 @@ from game import Game
 def main():
     won_counter = 0
     removed = 0
-    number_of_games = 10
+    number_of_games = 1
     for _ in range(number_of_games):
-        game = Game(2, number_of_games, 'absolute')
+        game = Game(2, 10, 'range')
         if game.won:
             won_counter = won_counter + 1
         removed = removed + game.removedWorlds
