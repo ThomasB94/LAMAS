@@ -8,7 +8,7 @@ import { ImplementationComponent } from './implementation/implementation.compone
 const routes: Routes = [
   { path: 'analysis', component: ThirdComponent },
   { path: '', component: FirstComponent },
-  { path: 'intro', component: SecondComponent },
+  { path: 'logic', component: SecondComponent },
   { path: 'implementation', component: ImplementationComponent },
 ];
 

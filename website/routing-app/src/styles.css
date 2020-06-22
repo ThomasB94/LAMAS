@@ -9,19 +9,32 @@
 }
 
 .mycustom-jumbotron {
-  background-color: #dadfe6;
+  background-color: #edf0f3;
   opacity: 1;
   margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
-  width: 98vw;
-  height: auto;
-  border: 1px solid #b6c1cd;
+  width: 46vw;
 }
 
 .main-text {
   width: 40vw;
   margin: auto;
   font-size: larger;
+  font-family: 'Muli', sans-serif;
 }
+
+.main-list {
+  align-self: left;
+  width: 40vw;
+  margin: auto;
+  font-size: larger;
+  text-align: left;
+}
+
+.list-title {
+  font-weight: bold;
+}
+
+html {overflow-y: scroll;}
