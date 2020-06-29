@@ -72,7 +72,7 @@ class Game():
 
             if not agent.can_make_move():
                 print("--Agent", agent_turn + 1, "can't make a move, so the game is lost")
-                print("Current agent had: ", self.agents[0].hand, "other agent had:", self.agents[1].hand)
+                print("Current agent had: ", self.agents[agent_turn].hand)
                 break
 
 
