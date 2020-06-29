@@ -99,7 +99,7 @@ def make_range_announcement(agent, game, ks, type):
         exclusionSetS2 = firstHalf
 
     # Construct announcement
-    print("Solve1")
+    # print("Solve1")
     if exclusionSetS1:
         announcement = Not(Atom(prefix1 + str(exclusionSetS1[0])))
         for index in range(1, len(exclusionSetS1)):
@@ -107,7 +107,7 @@ def make_range_announcement(agent, game, ks, type):
         ks, numRemoved = removeWorlds(ks, announcement)
         game.removedWorlds = game.removedWorlds + numRemoved
 
-    print("Solve2")
+    # print("Solve2")
     # Construct announcement
     if exclusionSetS2:
         announcement = Not(Atom(prefix2 + str(exclusionSetS2[0])))

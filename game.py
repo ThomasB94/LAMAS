@@ -53,13 +53,14 @@ class Game():
         while True:
             print("----------------------------------")
             print("Starting round", round)
-            print("Every agent will make an announcement, after which")
-            print("agent", agent_turn + 1, "will decide which table stack to put a card on")
+            # print("Every agent will make an announcement, after which")
+            # print("agent", agent_turn + 1, "will decide which table stack to put a card on")
+            print("The table is", self.table[0][0], "and", self.table[1][0])
 
-            print("Make model")
+            # print("Make model")
             self.model = initialize_model(self.num_agents, self.played_cards, self.top_card, self.table)
 
-            print("Make an announcement")
+            # print("Make an announcement")
             # this doesn't do anything yet
             for agent in self.agents:
                 if agent != self.agents[agent_turn]:
@@ -72,7 +73,8 @@ class Game():
                 break
 
 
-            print("Agent had stack", self.agents[agent_turn].hand)
+            # print("Agent had stack", self.agents[agent_turn].hand)
+            print("Current agent stack:", self.agents[agent_turn].hand, "other agent stack:", self.agents[agent_turn-1].hand)
             card, stack_idx = agent.make_move()
             print("agent put", card, "on stack", stack_idx)
 

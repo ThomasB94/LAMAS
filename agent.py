@@ -47,19 +47,12 @@ class Agent():
 
 
     def can_make_move(self):
-        self.determine_strategy()
-        status = False
-        for stack in self.game.table:
-            if stack[1] == UP:
-                diffs = np.array(self.hand) - stack[0][-1]
-                if not all(x < 0 for x in diffs):
-                    status = True
-            elif stack[1] == DOWN:
-                diffs = stack[0][-1] - np.array(self.hand)
-                if not all(x < 0 for x in diffs):
-                    status = True
-
-        return status
+        cards = self.get_closest_cards()
+        if cards[0][1] == 99999 and cards[0][1] == 99999:
+            print("++_++_+_+_+__+_+__+___+_+_+____++_++_+++_+_")
+            return False
+        else:
+            return True
 
 
     def take_card(self):
@@ -85,6 +78,7 @@ class Agent():
         card = self.hand[idx]
         diff = min(diffs)
         closest.append((card, diff))
+        print("THESE ARE THE CLOSEST CARDS", closest)
 
         return closest
 
@@ -93,33 +87,40 @@ class Agent():
         closest = self.get_closest_cards()
         closest_up = closest[0][0]
         closest_down = closest[1][0]
-        if closest_up == 99999:
-            return 1
-        elif closest_down == 99999:
-            return 0
+        print("UP:", closest_up)
+        print("DOWN:", closest_down)
+        if closest[0][1] == 99999:
+            print("HALLSDALSDALKSJDLASJD")
+            return 1, closest_down
+        elif closest[1][1] == 99999:
+            return 0, closest_up
         else:
             ks = self.game.model
             all_worlds = ks.worlds
             possible_up = []
             possible_down = []
             prefix = str(closest_up) + '/' + str(closest_down)
-            print("PREFIXXXX_______________", prefix)
+            # print("PREFIXXXX_______________", prefix)
             for world in all_worlds:
                 if prefix == world.name[0:3]:
-                    print(world.name)
+                    # print(world.name)
                     possible_up.append(int(world.name[4]))
                     possible_down.append(int(world.name[6]))
             
             possible_up = list(set(possible_up))
             possible_down = list(set(possible_down))
-            print("UP::::::::", possible_up)
-            print("DOWN::::::::", possible_down)
+            # print("UP::::::::", possible_up)
+            # print("DOWN::::::::", possible_down)
             if possible_up == []:
                 return 0, closest_up
             if possible_down == []:
                 return 1, closest_down
             other_closest_up = min(possible_up)
             other_closest_down = max(possible_down)
+
+            if closest_up < self.game.table[0][0][-1]:
+                print("HASDLSDJ")
+                print(other_closest_up)
             
             if closest_up < other_closest_up:
                 # here we have better cards for both stacks, so we make a random choice
