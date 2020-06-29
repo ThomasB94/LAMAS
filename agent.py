@@ -100,12 +100,23 @@ class Agent():
             possible_up = []
             possible_down = []
             prefix = str(closest_up) + '/' + str(closest_down)
+            #TODO: fix this id of agent determines which world to check
             # print("PREFIXXXX_______________", prefix)
-            for world in all_worlds:
-                if prefix == world.name[0:3]:
+            if self.id == 0:
+                for world in all_worlds:
                     # print(world.name)
-                    possible_up.append(int(world.name[4]))
-                    possible_down.append(int(world.name[6]))
+                    if prefix == world.name[0:3]:
+                        # print(world.name)
+                        possible_up.append(int(world.name[4]))
+                        possible_down.append(int(world.name[6]))
+
+            elif self.id == 1:
+                for world in all_worlds:
+                    if prefix == world.name[4:]:
+                        # print("DOES ENTER THIS")
+                        # print(world.name)
+                        possible_up.append(int(world.name[0]))
+                        possible_down.append(int(world.name[2]))
 
             possible_up = list(set(possible_up))
             possible_down = list(set(possible_down))
