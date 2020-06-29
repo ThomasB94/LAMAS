@@ -1,10 +1,13 @@
+import time
 from game import Game
+
 
 def main():
     won_counter = 0
     removed = 0
     announcements = 0
-    for _ in range(20):
+    t = time.time()
+    for _ in range(100):
         game = Game(2, 10, 'absolute')
         if game.won:
             won_counter = won_counter + 1
@@ -17,5 +20,7 @@ def main():
         print("No announcements were done")
     else:
         print("On average ", (removed / announcements) / 20, " worlds removed per announcement")
+    elapsed = time.time() - t
+    print("This took", elapsed, "seconds")
 
 main()
