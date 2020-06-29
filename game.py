@@ -63,7 +63,9 @@ class Game():
             # this doesn't do anything yet
             for agent in self.agents:
                 if agent != self.agents[agent_turn]:
-                    self.model = agent.make_announcement()
+                    # change the number of announcements done by an agent
+                    for numAnnouncements in range(1):
+                        self.model = agent.make_announcement()
             agent = self.agents[agent_turn]
 
             if not agent.can_make_move():
