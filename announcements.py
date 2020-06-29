@@ -31,6 +31,7 @@ def makePossibilityList(ks, top_card, prefix):
     return possibleNumbers
 
 def split_list(list):
+    #can change relative range
     half = len(list)//2
     return list[:half], list[half:]
 
