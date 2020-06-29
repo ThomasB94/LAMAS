@@ -48,8 +48,8 @@ class Agent():
 
     def can_make_move(self):
         cards = self.get_closest_cards()
-        if cards[0][1] == 99999 and cards[0][1] == 99999:
-            print("++_++_+_+_+__+_+__+___+_+_+____++_++_+++_+_")
+        if cards[0][1] == 99999 and cards[1][1] == 99999:
+            # print("++_++_+_+_+__+_+__+___+_+_+____++_++_+++_+_")
             return False
         else:
             return True
@@ -78,7 +78,7 @@ class Agent():
         card = self.hand[idx]
         diff = min(diffs)
         closest.append((card, diff))
-        print("THESE ARE THE CLOSEST CARDS", closest)
+        # print("THESE ARE THE CLOSEST CARDS", closest)
 
         return closest
 
@@ -87,10 +87,10 @@ class Agent():
         closest = self.get_closest_cards()
         closest_up = closest[0][0]
         closest_down = closest[1][0]
-        print("UP:", closest_up)
-        print("DOWN:", closest_down)
+        # print("UP:", closest_up)
+        # print("DOWN:", closest_down)
         if closest[0][1] == 99999:
-            print("HALLSDALSDALKSJDLASJD")
+            # print("HALLSDALSDALKSJDLASJD")
             return 1, closest_down
         elif closest[1][1] == 99999:
             return 0, closest_up
@@ -119,7 +119,7 @@ class Agent():
             other_closest_down = max(possible_down)
 
             if closest_up < self.game.table[0][0][-1]:
-                print("HASDLSDJ")
+                # print("HASDLSDJ")
                 print(other_closest_up)
             
             if closest_up < other_closest_up:
