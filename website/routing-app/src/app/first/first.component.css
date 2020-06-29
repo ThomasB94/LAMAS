@@ -19,7 +19,7 @@
   color: #f7bb2e; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   padding: 5px 10px; /* Some padding */
-  border-radius: 10px 0px 10px 0px; /* Rounded corners */
+  border-radius: 3px 3px 3px 3px; /* Rounded corners */
   font-size: 18px; /* Increase font size */
 }
 
