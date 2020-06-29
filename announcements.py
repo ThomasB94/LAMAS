@@ -99,6 +99,8 @@ def make_range_announcement(agent, game, ks, type):
     else:
         exclusionSetS2 = firstHalf
 
+    #To see if any worlds were actually removed
+    announcement_flag = 0
     # Construct announcement
     # print("Solve1")
     if exclusionSetS1:
@@ -106,7 +108,8 @@ def make_range_announcement(agent, game, ks, type):
         for index in range(1, len(exclusionSetS1)):
             announcement = And(announcement, Not(Atom(prefix1 + str(exclusionSetS1[index]))))
         ks, numRemoved = removeWorlds(ks, announcement)
-        game.removedWorlds = game.removedWorlds + numRemoved
+        game.removed_worlds += numRemoved
+        announcement_flag = 1
 
     # print("Solve2")
     # Construct announcement
@@ -115,7 +118,10 @@ def make_range_announcement(agent, game, ks, type):
         for index in range(1, len(exclusionSetS2)):
             announcement = And(announcement, Not(Atom(prefix2 + str(exclusionSetS2[index]))))
         ks, numRemoved = removeWorlds(ks, announcement)
-        game.removedWorlds = game.removedWorlds + numRemoved
+        game.removed_worlds += numRemoved
+        announcement_flag = 1
+
+    game.announcements_made += announcement_flag
 
     return ks
 

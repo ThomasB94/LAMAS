@@ -64,7 +64,7 @@ class Agent():
         closest = []
         up_card = self.game.table[0][0][-1]
         down_card = self.game.table[1][0][-1]
-        
+
         diffs = np.array(self.hand) - up_card
         diffs[diffs < 0] = 99999
         idx = diffs.argmin()
@@ -106,11 +106,11 @@ class Agent():
                     # print(world.name)
                     possible_up.append(int(world.name[4]))
                     possible_down.append(int(world.name[6]))
-            
+
             possible_up = list(set(possible_up))
             possible_down = list(set(possible_down))
-            # print("UP::::::::", possible_up)
-            # print("DOWN::::::::", possible_down)
+            print("UP::::::::", possible_up)
+            print("DOWN::::::::", possible_down)
             if possible_up == []:
                 return 0, closest_up
             if possible_down == []:
@@ -121,7 +121,7 @@ class Agent():
             if closest_up < self.game.table[0][0][-1]:
                 # print("HASDLSDJ")
                 print(other_closest_up)
-            
+
             if closest_up < other_closest_up:
                 # here we have better cards for both stacks, so we make a random choice
                 if closest_down > closest_down:
@@ -143,8 +143,3 @@ class Agent():
                     return 0, closest_up
                 else:
                     return 1, closest_down
-
-
-
-            
-                    

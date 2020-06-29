@@ -10,7 +10,8 @@ class Game():
         #records which cards have been played
         self.played_cards = {}
         self.model = None
-        self.removedWorlds = 0
+        self.removed_worlds = 0
+        self.announcements_made = 0
         # how many cards get dealt
         self.num_initial_cards = 2
         self.won = False
@@ -65,7 +66,7 @@ class Game():
             for agent in self.agents:
                 if agent != self.agents[agent_turn]:
                     # change the number of announcements done by an agent
-                    for numAnnouncements in range(1):
+                    for numAnnouncements in range(2):
                         self.model = agent.make_announcement()
             agent = self.agents[agent_turn]
 
