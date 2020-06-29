@@ -51,12 +51,12 @@ class Game():
         agent_turn = 0
         round = 1
         while True:
-            print("SELF REAMINING", self.remaining)
             print("--------------------------------------------")
             print("Starting round", round)
             # print("Every agent will make an announcement, after which")
             # print("agent", agent_turn + 1, "will decide which table stack to put a card on")
             print("The table is", self.table[0][0], "and", self.table[1][0])
+            print("The remaining stack is", self.remaining)
 
             # print("Make model")
             self.model = initialize_model(self.num_agents, self.played_cards, self.top_card, self.table)
@@ -95,8 +95,6 @@ class Game():
     # the game is won if there are no cards left on the stack and both players have no cards left
     def game_won(self):
         status = True
-        # if self.remaining is not []:
-        #     status = False
         for agent in self.agents:
             if agent.hand:
                 status = False
