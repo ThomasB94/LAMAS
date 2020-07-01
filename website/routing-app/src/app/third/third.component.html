@@ -1,29 +1,35 @@
 <p></p>
 
 <div class="jumbotron mycustom-jumbotron text-center">
-    <h2 style="text-align: left; width: 40vw; margin: auto; margin-bottom: 12px; margin-top: 2px; font-weight: bold; font-family: 'Roboto';">The Game?</h2>
-    <p class ="main-text" style="text-align: left;">The Game is a card game that can be played with 1 to 5 players.
-        It is a cooperative game where player play together against the game.
-        Instead of a traditional deck, the game uses cards numbered from 2 to 99.
-        The game is setup with four cards on the table; two 1s and two 100s.
-        Each player is dealt a number of cards from the deck, depending on how many players play.
-        The goal of the game is for every player to discard all of their cards.
-        This can be done on either of the four cards on table by placing cards larger than the current cards on the stack on the 1 cards and cards lower than the current cards on the stack on the 100 cards.
-        Every round each player must discard at least two cards, but there is no maximum.
-        The caveat is that players can communicate, but with some restrictions.
-        Players can't mention the cards they have, but they can give vague comments such as: "I have a good card for this stack" or "My cards won't be good for this stack".
+    <h2 style="text-align: left; width: 40vw; margin: auto; margin-bottom: 12px; margin-top: 2px; font-weight: bold; font-family: 'Roboto';">Results</h2>
+    <p class ="main-text" style="text-align: left;">
+        Using this framework we performed experiments in which the three types of communication were compared. 
+        The no communication setup was used to establish a base line that says how often a game will be won if there is no communication between players. 
+        The absolute and relative communications were run with 1 to 3 communications for both types.
+
+      
+
+        
     </p>
     <p></p>
     <p class ="main-text" style="text-align: left;">
-        The knowledge and the communication of players can be captured using epistemic and public announcement logic.
-        In this project, we will model all the knowledge in the game and how public announcement can change this knowledge.
-        This should give a good strategy to play the game optimally.
+        With this setup, the simulation was run 1000 times with each setting and the number of games won along with the average number of removed worlds was recorded. 
+        How many of the games are won gives a good insight into what the best communication strategy is when playing the game. 
+        Additionally, the average number of removed worlds says something about how much information is given to the other player with an announcement.  
     </p>
     <p></p>
     <p class="main-text" style="text-align: left;">
-        Though the game seems simple, playing with the aforementioned rules would lead to an explosion of knowledge states.
-        Therefore, we will simplify the game in the following ways. We will play with only two players and two stacks of cards on the table, one that goes from 1 to 100 and one that goes from 100 to 1.
-        We introduce two possible announcements that players can make, namely: "I have a good card for this stack" and "I have a bad card for this stack".
-        The first announcement indicates that a player has a card that can be 1 to 5 off from the card on the stack, while the second announcement indicates that a player has a card that is more than 5 off from the current card. </p>
+        The results of these experiments can be found in the table below. 
+
+
+        HIER TABELTJE MAAR DOEN HE ALS HET MOET DOE MAAR DAN
+        * significant difference with the no communcication setting.
+    </p>
+    <p></p>
+    <p class="main-text" style="text-align: left;">
+        The tables shows that for both absolute and relative communications there is a significant differnence with the no communication situation if 2 or 3 announcements are made.
+
+
+    </p>
   </div>
 
