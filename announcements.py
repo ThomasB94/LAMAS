@@ -63,7 +63,7 @@ def removeWorlds(ks, formula):
         ksCopy.remove_node_by_name(world)
     return ksCopy, len(notcompliant)
 
-def make_range_announcement(agent, game, ks, type):
+def make_range_announcement(agent, game, ks, announcement_type):
     # find possible numbers and ad to set
 
     if not agent.hand:
@@ -81,18 +81,18 @@ def make_range_announcement(agent, game, ks, type):
 
 
     # divide set into announcement values
-    if type == 'range':
+    if announcement_type == 'range':
         firstHalf, secondHalf = split_list(posStack1)
-    elif type == 'absolute':
+    elif announcement_type == 'absolute':
         firstHalf, secondHalf = split_list_index(posStack1, 3)
     if s1Best in firstHalf:
         exclusionSetS1 = secondHalf
     else:
         exclusionSetS1 = firstHalf
 
-    if type == 'range':
+    if announcement_type == 'range':
         firstHalf, secondHalf = split_list(posStack2)
-    elif type == 'absolute':
+    elif announcement_type == 'absolute':
         firstHalf, secondHalf = split_list_index(posStack2, 3)
     if s2Best in firstHalf:
         exclusionSetS2 = secondHalf
@@ -126,5 +126,5 @@ def make_range_announcement(agent, game, ks, type):
     return ks
 
 
-def make_announcement_of_type(agent, game, ks, type):
-    return make_range_announcement(agent, game, ks, type)
+def make_announcement_of_type(agent, game, ks, announcement_type):
+    return make_range_announcement(agent, game, ks, announcement_type)
