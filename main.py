@@ -6,10 +6,10 @@ def main():
     won_counter = 0
     removed = 0
     announcements = 0
-    num_of_games = 50
+    num_of_games = 1000
     t = time.time()
     for _ in range(num_of_games):
-        game = Game(2, 10, 'range')
+        game = Game(2, 10, 'absolute')
         if game.won:
             won_counter = won_counter + 1
         removed = removed + game.removed_worlds
@@ -20,7 +20,7 @@ def main():
     if announcements == 0:
         print("No announcements were done")
     else:
-        print("On average ", (removed / announcements) / num_of_games, " worlds removed per announcement")
+        print("On average ", (removed / announcements), " worlds removed per announcement")
     elapsed = time.time() - t
     print("This took", elapsed, "seconds")
 
