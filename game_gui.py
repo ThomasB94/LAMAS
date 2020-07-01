@@ -75,10 +75,10 @@ class GameGUI():
         self.show_cards()
         text = pygame.font.SysFont('Arial', 16)
         text.set_italic(True)
-        text1 = text.render('Press space to step through the game', True, self.BLACK)
+        text1 = text.render('Press space to step through the game', True, self.WHITE)
         text.set_italic(False)
         self.screen.blit(text1, (15,15))
-        text2 = text.render('The remaining cards are: ' + str(remaining_cards + self.agents[1].hand), True, self.BLACK)
+        text2 = text.render('The remaining cards are: ' + str((remaining_cards + self.agents[1].hand).sort), True, self.WHITE)
         self.screen.blit(text2, (15,100))
         pygame.display.update()
         
