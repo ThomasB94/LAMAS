@@ -10,10 +10,12 @@ class Game():
     def __init__(self, num_agents, top_card, announcements):
         self.num_agents = num_agents
         self.top_card = top_card
+        self.empty_list = []
         #records which cards have been played
         self.played_cards = {}
         self.model = None
-        self.removedWorlds = 0
+        self.removed_worlds = 0
+        self.announcements_made = 0
         # how many cards get dealt
         self.num_initial_cards = 2
         self.won = False
@@ -24,6 +26,11 @@ class Game():
         print("--------------------------------------------")
         self.setup_game()
         self.gui = GameGUI(self.agents, self.num_initial_cards)
+        self.empty_list.extend(self.remaining)
+        self.empty_list.extend(self.agents[1].hand)
+        self.empty_list.sort()
+        self.gui.update_screen(self.table, self.empty_list, 0)
+        print("Remaing cards are:", self.empty_list)
         self.game_loop()
         
     def setup_game(self):
@@ -47,14 +54,14 @@ class Game():
             for _ in range(self.num_initial_cards):
                 hand.append(self.remaining.pop())
             self.agents.append(Agent(agent_idx, hand, self))
-            print("Agent", agent_idx + 1, "has cards", hand)
-        print("Remaing cards are:", self.remaining)
-        print("-------------------------")
-
+        print('The cards have been shuffled. You and your opponent both receive 2 cards.')
+        
+        
     # A round is a round of announcements after which an agent decides which stack to put their card on
     def game_loop(self):
         agent_turn = 0
         round = 1
+        print("++++++++++++++++++++++++++++++++++++++++++++")
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -62,30 +69,32 @@ class Game():
                     quit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        print("----------------------------------")
                         print("Starting round", round)
-                        print("Every agent will make an announcement, after which")
-                        print("agent", agent_turn + 1, "will decide which table stack to put a card on")
-
-                        print("Make model")
+                        # Remove the 'press space to step through the game'
+                        self.gui.first_show = False
                         self.model = initialize_model(self.num_agents, self.played_cards, self.top_card, self.table)
-                        print("Make an announcement")
-                        # this doesn't do anything yet
                         for agent in self.agents:
                             if agent != self.agents[agent_turn]:
-                                self.model = agent.make_announcement()
+                                for numAnnouncements in range(1):
+                                    self.model = agent.make_announcement()
                         agent = self.agents[agent_turn]
                         
+                        # Print name to notify which player is going to make a move this round
+                        print_name = 'You' if agent_turn == 0 else 'Your opponent'
                         if not agent.can_make_move():
-                            print("Agent", agent_turn + 1, "can't make a move, so the game is lost")
-                            print("HERE AGENT STACKS", self.agents[0].hand, self.agents[1].hand)
+                            print(print_name, "can't make a move, so the game is lost")
+                            print(print_name, "had the following cards left:", self.agents[agent_turn].hand)
                             self.lost = True
                             break
                         
-                        print("Agent had stack", self.agents[agent_turn].hand)
+                        # The current player plays a card
                         card, stack_idx = agent.make_move()
-                        print("agent ", agent_turn, "put", card, "on stack", stack_idx)
 
+                        # Print statement to notify which card was put on which stack
+                        print_stack = 'UP' if stack_idx == 0 else 'DOWN'
+                        print(print_name, "put", card, "on the",  print_stack, "stack")
+
+                        # The player who has played the card should draw a new one, if possible
                         agent.take_card()
                     
                         if self.game_won():
@@ -95,13 +104,15 @@ class Game():
                         agent_turn = agent_turn + 1
                         if agent_turn == self.num_agents:
                             agent_turn = 0
-                        
-                        
+                        self.empty_list = []
+                        self.empty_list.extend(self.remaining)
+                        self.empty_list.extend(self.agents[1].hand)
+                        self.empty_list.sort()
                         round = round + 1
-            
-            self.gui.update_screen(self.table, self.remaining)
+                        print("++++++++++++++++++++++++++++++++++++++++++++")
+            self.gui.update_screen(self.table, self.empty_list, agent_turn)
             if self.won or self.lost:
-                print('Number of removed worlds: {}'.format(self.removedWorlds))
+                print('Number of removed worlds: {}'.format(self.removed_worlds))
                 self.end_game(self.won, self.lost)
                                             
     def game_won(self):

@@ -15,28 +15,31 @@ class GameGUI():
         self.screen = pygame.display.set_mode(self.size)
 
         self.agents = agents
-        self.clock = pygame.time.Clock()
+
+        self.first_show = True
+        # Colour constants
         self.BLACK = (0, 0, 0)
         self.WHITE = (255, 255, 255)
         self.RED = (110, 42, 81)
         self.RED_SHADE = (38, 14, 28)
+        self.YELLOW = (247, 187, 46)
         self.bg = (42, 81, 110)
         self.pile_colour = (110, 71, 42)
         
         self.font = pygame.font.SysFont('Arial', 50)
 
         # Player cards
-        self.image = pygame.Surface((self.width/10, self.height/4))  # The tuple represent size.
+        self.image = pygame.Surface((self.width/10, self.height/4))  
         self.image.fill(self.WHITE)
 
         self.border_pile = pygame.Surface(((self.width/10)+4, (self.height/4)+4))
         self.border_pile.fill(self.BLACK)
 
         # Piles to put cards on
-        self.image_pile = pygame.Surface((self.width/8, self.height/3.8))  # The tuple represent size.
+        self.image_pile = pygame.Surface((self.width/8, self.height/3.8)) 
         self.image_pile.fill(self.RED)
 
-        self.image_pile_border = pygame.Surface(((self.width/8)+2, (self.height/3.8)+2))  # The tuple represent size.
+        self.image_pile_border = pygame.Surface(((self.width/8)+2, (self.height/3.8)+2))  
         self.image_pile_border.fill(self.RED_SHADE)
 
         # Stacks to play on
@@ -60,26 +63,22 @@ class GameGUI():
                 self.render_card(str(card), self.image, pile, self.border_pile, agent_idx)
             agent_idx = 2
 
-    def update_screen(self, table, remaining_cards):
+    def update_screen(self, table, remaining_cards, agent_turn):
         self.screen.fill(self.bg)
+
+        # Render the stacks to play on
+        self.font.set_bold(True)
         pile1_card = str(table[0][0][-1])
         pile2_card = str(table[1][0][-1])
-        # Playing piles will be bold
-        self.font.set_bold(True)
-        # Render stuff
         self.render_card(pile1_card, self.image_pile, self.pile1, self.image_pile_border, 1, 'UP')
         self.render_card(pile2_card, self.image_pile, self.pile2, self.image_pile_border, 1, 'DOWN')
-        # Deactive bold text
         self.font.set_bold(False)
+
         # Render the player cards
         self.show_cards()
-        text = pygame.font.SysFont('Arial', 16)
-        text.set_italic(True)
-        text1 = text.render('Press space to step through the game', True, self.WHITE)
-        text.set_italic(False)
-        self.screen.blit(text1, (15,15))
-        text2 = text.render('The remaining cards are: ' + str((remaining_cards + self.agents[1].hand).sort), True, self.WHITE)
-        self.screen.blit(text2, (15,100))
+
+        # Render all textual components
+        self.display_text(remaining_cards, agent_turn)
         pygame.display.update()
         
     def render_card(self, card_value, source, destination, shade_source, agent_idx, pile_text=None):
@@ -112,4 +111,55 @@ class GameGUI():
         #text_w, text_h = text_font.size(text)
         text_font.set_underline(True)
         self.screen.blit(text_font.render(end_text, True, self.BLACK), render_rect)
-        pygame.display.update()        
+        pygame.display.update()
+
+    def display_text(self, remaining_cards, agent_turn):
+        text = pygame.font.SysFont('Arial', 18)
+        
+        # Display general step tooltip
+        if self.first_show:
+            text.set_italic(True)
+            text1 = text.render('Press space to step through the game', True, self.WHITE)
+            text.set_italic(False)
+            self.screen.blit(text1, (15,50))
+
+        # Display what the remaining cards are
+        text2 = text.render('The remaining cards are: ' + str(remaining_cards), True, self.WHITE)
+        self.screen.blit(text2, (15,25))
+
+        # Text to display where the announcements for UP stack will be located
+        text.set_underline(True)
+        announce_stack1 = text.render('Announcements for UP stack', True, self.BLACK)
+        self.screen.blit(announce_stack1, (55,170))
+
+        # Text to display where the announcements for DOWN stack will be located
+        announce_stack2 = text.render('Announcements for DOWN stack', True, self.BLACK)
+        self.screen.blit(announce_stack2, (635,170))
+        text.set_underline(False)
+
+        # Display who's turn it is
+        text_turn = pygame.font.SysFont('Arial', 20)
+        print_name = 'your' if agent_turn == 0 else 'your opponent\'s'
+        print_text = 'It is now ' + print_name + ' turn'
+        text3 = text_turn.render(print_text, True, self.YELLOW)
+        y = 375 if agent_turn == 0 else 140
+        self.screen.blit(text3, (15,y))
+
+    
+    def display_announcements(self, text, stack_type):
+        font = pygame.font.SysFont('Arial', 14)
+        pygame.display.update()
+        # Loop to keep displaying the announcements
+        while True:
+            display_text = font.render(text, True, self.WHITE)
+            x = 15 if stack_type == 'UP' else 595
+            self.screen.blit(display_text, (x,200))
+            pygame.display.update()
+            while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        print('exited game')
+                        quit()
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            return
