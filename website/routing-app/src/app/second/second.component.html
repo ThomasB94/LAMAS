@@ -41,10 +41,46 @@
     <li>
       <a> <a class="list-title">Absolute range of the announcement</a>: In this case we take the good statement not to mean having a card in a certain percentile, but having a card in the top <i>k</i>  cards. </a>
     </li>
-    <li>
-      <a> <a class="list-title">Announcement about stack preference</a>: Here, we will experiment with announcements that only say something about which stack the agent prefers.
-      This preference is based on which stack the agent has better cards for. </a>
-    </li>
   </ul>
+  <p></p>
+  <p class="main-text" style="text-align: left;">
+    Any Kripke structure that is designed for this task, has to contend with two problems:
+    A simulation that included kripke worlds for all possible card combinations would not be managable.
+    And the state of the game changes every round.
+    Meaning that an accurate Kripke model needs to be rebuild every turn.
+    Because of this the Kripke structure has a unique form.
+    It needs to accurately capture the beliefs, but also be fast enough to be build quickly.
+  </p>
+  <p></p>
+  <p class="main-text" style="text-align: left;">
+    This implementation accomplishes this by only modeling the best card each player has for a certain stack.
+    Structuring the model like this means that we reduce the amount of worlds in our model significantly.
+    For every world in the model a set of exactly four propositions holds.
+    This set contains one proposition for each player for each stack.
+    The specific proposition that holds is based on which card that player has for the stack.
+    In this implementation, the form of the propositions is made up of three parts.
+    A possible proposition could be "P1S23".
+    The first part "P1", tells you this will be about player one.
+    The second part "S2" tells you this proposition relates to stack two.
+    Lastly the "3" tells you that this preposition represents the card three.
+    So this proposition tells you that player one for stack two has as their best card a three.
+    At the start of every round, a Kripke structure can be buid containing all worlds that are still possible.
+    The relations between these world are ordered around the following idea:
+    A player can only distinguish between worlds where propositions relating to their cards differ.
+  </p>
+  <p></p>
+  <p class="main-text" style="text-align: left;">
+    The announcements in this framework can be divided up into three parts.
+    First is the collections of a set of possible worlds.
+    This is done through the Kripke structure, as it allows you to check which worlds are still presents.
+    The corresponding cards numbers relating to those worlds can then be used to construct a set of possible cards.
+    In the second part, the set can then be ordered based on the "goodness" of the cards.
+    After ordering the cards the type of announcement combined with the actual value of the best card that you have, will determine the announcement.
+    This can be seen as splitting the set based on the announcement type, and determining in which subset your card is.
+    The last part is making the actual announcement that will change the Kripke model.
+    An announcement of "My card best card is in the top half of cards", is an equivalent to "I do not have an 99, nor a 98, nor a 97... nor a 51".
+    This form is easily adaptable into a logical announcement compliant with the Kripke model.
+    The system will contstructing an announcement as the exclusion of all the cards that were not in the subset in which the announcers actual card was.
+  </p>
 </div>
 <p></p>
