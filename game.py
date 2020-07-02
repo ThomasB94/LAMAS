@@ -7,7 +7,7 @@ import pygame
 import time
 
 class Game():
-    def __init__(self, num_agents, top_card, announcements):
+    def __init__(self, num_agents, top_card, announcements, num_announcements):
         self.num_agents = num_agents
         self.top_card = top_card
         self.empty_list = []
@@ -21,6 +21,7 @@ class Game():
         self.won = False
         self.lost = False
         self.announcement_type = announcements
+        self.num_announcements = num_announcements
         print("Setting up game with", num_agents, "agents and", top_card, "as the highest card.")
         print(announcements, "is the announcements setting")
         print("--------------------------------------------")
@@ -75,7 +76,7 @@ class Game():
                         self.model = initialize_model(self.num_agents, self.played_cards, self.top_card, self.table)
                         for agent in self.agents:
                             if agent != self.agents[agent_turn]:
-                                for numAnnouncements in range(1):
+                                for _ in range(self.num_announcements):
                                     self.model = agent.make_announcement()
                         agent = self.agents[agent_turn]
                         
