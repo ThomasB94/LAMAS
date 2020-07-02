@@ -77,6 +77,7 @@ def make_range_announcement(agent, game, ks, announcement_type):
 
     posStack1 = makePossibilityList(ks, game.top_card, prefix1)
     posStack2 = makePossibilityList(ks, game.top_card, prefix2)
+    posStack2.reverse()
 
     # Divide set into announcement values
     exclusionSetS1 = determine_exclusion_set(game, agent, posStack1, s1Best, announcement_type, 'UP')
