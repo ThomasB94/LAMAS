@@ -21,7 +21,7 @@
 .main-text {
   width: 40vw;
   margin: auto;
-  font-size: larger;
+  font-size: medium;
   font-family: 'Muli', sans-serif;
 }
 
@@ -29,7 +29,7 @@
   align-self: left;
   width: 40vw;
   margin: auto;
-  font-size: larger;
+  font-size: medium;
   text-align: left;
 }
 

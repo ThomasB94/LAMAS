@@ -1,7 +1,7 @@
 <p></p>
 
 <div class="jumbotron mycustom-jumbotron text-center">
-    <h2 style="text-align: left; width: 40vw; margin: auto; margin-bottom: 12px; margin-top: 2px; font-weight: bold; font-family: 'Roboto';">Results</h2>
+    <h2 style="text-align: left; width: 40vw; margin: auto; margin-bottom: 12px; margin-top: -40px; font-weight: bold; font-family: 'Roboto';">Experiments</h2>
     <p class ="main-text" style="text-align: left;">
         Using this framework we performed experiments in which the three types of communication were compared. 
         The no communication setup was used to establish a base line that says how often a game will be won if there is no communication between players. 
@@ -20,16 +20,88 @@
     <p></p>
     <p class="main-text" style="text-align: left;">
         The results of these experiments can be found in the table below. 
-
-
-        HIER TABELTJE MAAR DOEN HE ALS HET MOET DOE MAAR DAN
-        * significant difference with the no communcication setting.
     </p>
     <p></p>
     <p class="main-text" style="text-align: left;">
-        The tables shows that for both absolute and relative communications there is a significant differnence with the no communication situation if 2 or 3 announcements are made.
+        
+
+    </p>
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Type of announcement</th>
+            <th scope="col">Number of announcements</th>
+            <th scope="col">Ratio won</th>
+            <th scope="col">Worlds reduced</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">None</th>
+            <td>0</td>
+            <td>0.540</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <th scope="row" rowspan="3">Relative</th>
+            <td>1</td>
+            <td>0.557</td>
+            <td>179</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>0.610*</b></td>
+            <td>133</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><b>0.582*</b></td>
+            <td>113</td>
+          </tr>
+          <tr>
+            <th scope="row" rowspan="3">Absolute</th>
+            <td>1</td> 
+            <td>0.552</td>
+            <td>208</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>0.599*</b></td>
+            <td>186</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><b>0.598*</b></td>
+            <td>185</td>
+          </tr>
+        </tbody>
+      </table>
+      *significant difference with the no communications situation
+    </div>
+
+    <p></p>
+    <p class="main-text" style="text-align: left;">
+        The table shows that for both absolute and relative communications there is a significant difference with the no communication situation when at least 2 announcements are made.
+        This can be explained by looking at how announcements work in our model. When an absolute or relative announcement is made it reduces the number of possible cards the other player can have. 
+        This means it becomes easier to decide which stack to put a card on. 
+        There is no significant difference between absolute and relative announcements, which is likely due to using a deck with only 10 cards. 
+        It is hard to say which announcement would be better in the real setting with 100 cards, because while the relative announcement divides the set in two, the absolute announcement can potentially remove all cards except for the top three cards. 
+        In some cases the relative announcements would be better, while in other cases the absolute announcements are better.
 
 
     </p>
+    <p></p>
+    <p class="main-text" style="text-align: left;">
+        The results also show that for both types of announcements the average number of removed worlds is higher when 1 announcement is made than when 2 or 3 announcements are made. 
+        The simple reason for this is that once the first announcement is made, there is only a small set of possible cards left, which means there is not much to remove for the second or third announcement. 
+        From this we can make the, somewhat obvious, conclusion that more announcements lead to a more informed and better decision.
+    </p>
+
+
   </div>
 
