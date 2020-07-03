@@ -10,7 +10,7 @@ export class AppComponent {
   public constructor(private titleService: Title ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('LAMAS');
+    this.titleService.setTitle('LAMAS: The Game');
   }
 
 }
