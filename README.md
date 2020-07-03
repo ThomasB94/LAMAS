@@ -2,6 +2,9 @@
 
 An explanation on what is implemented here can be found [here](https://lamas-2020.web.app/).
 
+## Requirements
+Running our simulation requires ```Python 3.x``` or higher. It is recommended to have a ```Python``` version of ```> 3.5``` installed.
+
 ## Run instructions
 - Clone the repo
 - ```cd``` into the directory with the file ```requirements.txt```
