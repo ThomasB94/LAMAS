@@ -38,3 +38,13 @@
 }
 
 html {overflow-y: scroll;}
+
+#divider {
+  position: relative;
+  top: -2vh;
+  left: 0.7vw;
+  bottom: 5px;
+  width : 7vw;
+  text-align : left;
+  border-bottom : 2px solid #f7bb2e;
+  }
