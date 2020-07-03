@@ -7,19 +7,19 @@
     The Game is a card game that can be played with 1 to 5 players.
     It is a cooperative game that allows people to play together against the game.
     Instead of a traditional deck, the game uses cards numbered from 2 to 99.
-    The game is setup with four cards on the table; two 1s and two 100s.
+    The game is setup with four cards on the table: two 1s and two 100s. From there on, the stacks with the 1s are designated
+    'up' stacks; the stacks with the 100s are designated 'down' stacks. Cards can only be played on the up stack if the card is higher than the current
+    top card on the up stack, and lower than the current top card for the down stack.
     Each player is dealt a number of cards from the deck, depending on how many players play.
     The remaining cards are put on the table.
     The goal of the game is for every player to discard all of their cards.
-    This can be done on either of the four cards on table by placing cards in an ascending or decending order on the 1 and on the 100 cards respectively.
-    Every round each player must discard at least two cards and take as many cards as he/she discarded.
-    To give an example, let’s say some rounds have passed and the table has the cards; 30, 5, 91, 100.
+    This can be done on either of the four cards on table by placing cards in an ascending or descending order on the 1 and on the 100 cards respectively.
+    Every round each player must discard at least two cards and take as many cards as the player had discarded.
+    To give an example, let’s say some rounds have passed and the table has the cards: 30, 5, 91, 100.
     A player can now put cards higher than 30 and 5 and lower than 91 and 100 on the perspective stacks.
     The best strategy is to put cards on the table that are closest to the current cards, because this allows for the most cards to be put on the stacks.
     To help the players win the game, they can communicate. However, these communications are limited.
-    Players can’t tell others which cards they have, but they can make vague claims such as “My cards are particularly good for the 30 stack” or “My cards are close to the 100 stack”.
-
-
+    Players can not tell others which cards they have exactly, but they can make vague claims such as “my cards are particularly good for the 30 stack” or “one of my cards is close to the top card on the up stack”.
   </p>
   <p></p>
   <p class ="main-text" style="text-align: left;">
@@ -36,17 +36,17 @@
   </p>
   <p></p>
   <p class="main-text" style="text-align: left;">
-    In order to do this we first need to lay out some communications strategies.
+    In order to do this we first need to lay out some communication strategies.
     We will look at the situation with no communication and compare it to situations where players can make “absolute” and “relative” announcements.
-    In our projects absolute communications are announcements that say something about an absolute number of cards, specifically 3.
+    In this project, absolute communications are announcements that say something about an absolute number of cards, specifically 3.
     Relative communications give the other players information about 50% of the cards.
     We will explain this using an example.
     Let’s say it is the first round and we have the cards 4 and 8.
     The possible cards that the other player can have are 2, 3, 5, 6, 7, 9.
-    Now the player can make an absolute announcement that tells us whether their cards are in the top 3 of cards or not.
-    The player can also make a relative announcement that gives us information about whether their cards are in the best 50% of cards or not.
-    Instead of making one announcements, the player can also make two or three announcements.
-    The announcement type and the amount of announcements will determine how much information is given.
+    Now the player can make an absolute announcement that tells us whether their cards are in the top 3 of cards or not, for a certain stack.
+    The player can also make a relative announcement that gives us information about whether their cards are in the best 50% of cards or not, for a certain stack.
+    A player is not limited to making one announcement: the player can also make two or three announcements.
+    The announcement type and the number of announcements will determine how much information is given.
     The knowledge for both players is captured in a Kripke model that is reduced by the announcements until there are only a few possibilities left, meaning the player can make an informed choice.
   </p>
 </div>

@@ -27,3 +27,9 @@
   margin: auto;
   text-align: center;
 }
+
+.ref-text {
+  font-size: smaller !important;
+  margin-top: 10px;
+  margin-bottom: -20px;
+}

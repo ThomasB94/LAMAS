@@ -7,7 +7,7 @@ Running our simulation requires ```Python 3.x``` or higher. It is recommended to
 
 ## Run instructions
 - Clone the repo
-- ```cd``` into the directory with the file ```requirements.txt```
+- ```bash cd``` into the directory with the file ```requirements.txt```
 - ```pip3 install -r requirements.txt```
 - ```python3 main.py announcement_type number_of_announcements```,
 
