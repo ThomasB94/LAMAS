@@ -6,10 +6,13 @@ An explanation on what is implemented here can be found [here](https://lamas-202
 Running our simulation requires ```Python 3.x``` or higher. It is recommended to have a ```Python``` version of ```> 3.5``` installed.
 
 ## Run instructions
-- Clone the repo
+Clone the repo
 ```bash 
 cd
-``` into the directory with the file ```requirements.txt```
+``` 
+
+
+into the directory with the file ```requirements.txt```
 - ```pip3 install -r requirements.txt```
 - ```python3 main.py announcement_type number_of_announcements```,
 
