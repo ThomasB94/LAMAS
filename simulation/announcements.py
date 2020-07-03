@@ -62,7 +62,7 @@ def removeWorlds(ks, formula):
         ksCopy.remove_node_by_name(world)
     return ksCopy, len(notcompliant)
 
-def make_range_announcement(agent, game, ks, announcement_type):
+def make_range_announcement(agent, game, ks, announcement_type, announcement_idx):
     # Find possible numbers and ad to set
 
     if not agent.hand:
@@ -80,8 +80,8 @@ def make_range_announcement(agent, game, ks, announcement_type):
     posStack2.reverse()
 
     # Divide set into announcement values
-    exclusionSetS1 = determine_exclusion_set(game, agent, posStack1, s1Best, announcement_type, 'UP')
-    exclusionSetS2 = determine_exclusion_set(game, agent, posStack2, s2Best, announcement_type, 'DOWN')
+    exclusionSetS1 = determine_exclusion_set(game, agent, posStack1, s1Best, announcement_type, 'UP', announcement_idx)
+    exclusionSetS2 = determine_exclusion_set(game, agent, posStack2, s2Best, announcement_type, 'DOWN', announcement_idx)
 
     # To see if any worlds were actually removed
     announcement_flag = 0
@@ -108,32 +108,32 @@ def make_range_announcement(agent, game, ks, announcement_type):
 
     return ks
 
-def determine_exclusion_set(game, agent, stack, best_for_stack, announcement_type, stack_type):
+def determine_exclusion_set(game, agent, stack, best_for_stack, announcement_type, stack_type, announcement_idx):
+    # Split the list according to the specified strategy
     if announcement_type == 'range':
         first_half, second_half = split_list(stack)
         print_rest = 'have a card in the best half of cards for stack'
     elif announcement_type == 'absolute':
         first_half, second_half = split_list_index(stack, 3)
         print_rest = 'have a card in the top 3 cards for stack'
+    
+    # Prepare what to print, depending on which player it is
     print_rest = print_rest + ' ' + stack_type
     print_name = 'YOU:' if agent.id == 0 else 'OPPONENT:'
-    print('best for stack: ', best_for_stack)
+
+    # Determine in what half of the split the best card is located
     if best_for_stack in first_half:
         exclusion_set = second_half
-        #print(print_name, 'I', print_rest)
         announcement_string = print_name + ' I ' + print_rest
-        #print('Possible cards for UP stack after announcement: ' + str(first_half))
-        game.gui.display_announcements(announcement_string, stack_type)
+        game.gui.display_announcements(announcement_string, stack_type, announcement_idx)
     elif best_for_stack in second_half:
         exclusion_set = first_half
-        #print(print_name, 'I do NOT', print_rest)
         announcement_string = print_name + ' I do NOT ' + print_rest
-        #print('Possible cards for UP stack after announcement: ' + str(second_half))
-        game.gui.display_announcements(announcement_string, stack_type)
+        game.gui.display_announcements(announcement_string, stack_type, announcement_idx)
     else:
-        game.gui.display_announcements('No announcement left', stack_type)
+        game.gui.display_announcements('No announcement left', stack_type, announcement_idx)
         exclusion_set = []
     return exclusion_set
 
-def make_announcement_of_type(agent, game, ks, announcement_type):
-    return make_range_announcement(agent, game, ks, announcement_type)
+def make_announcement_of_type(agent, game, ks, announcement_type, announcement_idx):
+    return make_range_announcement(agent, game, ks, announcement_type, announcement_idx)

@@ -12,8 +12,8 @@ class Agent():
         self.hand.sort()
         self.game = game
 
-    def make_announcement(self):
-        return make_announcement_of_type(self, self.game, self.game.model, self.game.announcement_type)
+    def make_announcement(self, announcement_idx):
+        return make_announcement_of_type(self, self.game, self.game.model, self.game.announcement_type, announcement_idx)
 
     # return the card that has been placed and on which stack it has been placed
     def make_move(self):

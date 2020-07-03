@@ -76,8 +76,8 @@ class Game():
                         self.model = initialize_model(self.num_agents, self.played_cards, self.top_card, self.table)
                         for agent in self.agents:
                             if agent != self.agents[agent_turn]:
-                                for _ in range(self.num_announcements):
-                                    self.model = agent.make_announcement()
+                                for idx in range(self.num_announcements):
+                                    self.model = agent.make_announcement(idx)
                         agent = self.agents[agent_turn]
                         
                         # Print name to notify which player is going to make a move this round
@@ -93,29 +93,40 @@ class Game():
 
                         # Print statement to notify which card was put on which stack
                         print_stack = 'UP' if stack_idx == 0 else 'DOWN'
-                        print(print_name, "put", card, "on the",  print_stack, "stack")
+                        card_played_string = print_name + ' put ' + str(card) + ' on the ' + str(print_stack) + ' stack'
+                        self.gui.display_card_played(card_played_string, agent_turn)
 
                         # The player who has played the card should draw a new one, if possible
                         agent.take_card()
                     
+                        # Determine whether the game has been won
                         if self.game_won():
                             print("Game is won, because all agents have 0 cards left")
                             self.won = True
                             break
+
+                        # Pass the turn to the other player
                         agent_turn = agent_turn + 1
                         if agent_turn == self.num_agents:
                             agent_turn = 0
+                        
+                        # Gather all cards that are still possible for 'you' player
                         self.empty_list = []
                         self.empty_list.extend(self.remaining)
                         self.empty_list.extend(self.agents[1].hand)
                         self.empty_list.sort()
                         round = round + 1
                         print("++++++++++++++++++++++++++++++++++++++++++++")
+            
+            # Update all things that have to be rendered
             self.gui.update_screen(self.table, self.empty_list, agent_turn)
+
+            # The game is finished
             if self.won or self.lost:
                 print('Number of removed worlds: {}'.format(self.removed_worlds))
                 self.end_game(self.won, self.lost)
-                                            
+
+    # Check whether all agents have zero cards                                      
     def game_won(self):
         status = True
         for agent in self.agents:
@@ -124,6 +135,7 @@ class Game():
                 break
         return status
     
+    # Prepare what text should be displayed based on the outcome of the game
     def end_game(self, won=False, lost=False):
         if won:
             end_text = 'The game has been won! Congratulations!'

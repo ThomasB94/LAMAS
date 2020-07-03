@@ -3,25 +3,25 @@ import numpy as np
 
 class GameGUI():
     def __init__(self, agents, num_of_initial_cards):
+        self.agents = agents
         pygame.init()
-        #successes, failures = pygame.init()
-        #print("{0} successes and {1} failures".format(successes, failures))
-        #self.screen = pygame.display.set_mode((720, 480))  # Notice the tuple! It's not 2 arguments.
 
+        # Get user screen information
         infoObject = pygame.display.Info()
         pygame.display.set_caption('LAMAS - The Game')
+
+        # Ratio scaling
         screen_width, screen_height = int(infoObject.current_w/2), int(infoObject.current_h/2)
         self.width_scale = screen_width/960
         self.height_scale = screen_height/540
         self.width = 960 / self.width_scale
         self.height = 540 / self.height_scale
         self.size = int(self.width), int(self.height)
-        #self.size = self.width, self.height = 960, 540
         self.screen = pygame.display.set_mode(self.size)
 
-        self.agents = agents
-
+        # Flag to show stuff only once
         self.first_show = True
+        
         # Colour constants
         self.BLACK = (0, 0, 0)
         self.WHITE = (255, 255, 255)
@@ -31,6 +31,7 @@ class GameGUI():
         self.bg = (42, 81, 110)
         self.pile_colour = (110, 71, 42)
         
+        # Font constant
         self.font = pygame.font.SysFont('Arial', 50)
 
         # Player cards
@@ -53,6 +54,7 @@ class GameGUI():
 
         self.show_cards()
     
+    # Display the players' cards
     def show_cards(self):
         agent_idx = 1
         for agent in self.agents:
@@ -89,16 +91,23 @@ class GameGUI():
     def render_card(self, card_value, source, destination, shade_source, agent_idx, pile_text=None):
         self.screen.blit(shade_source, destination)
         render_rect = self.screen.blit(source, destination)
+        
+        # Account for the size of the text
         text_w, text_h = self.font.size(card_value)
         render_rect[0] += (render_rect[2] / 2) - (text_w/2)
         render_rect[1] += (render_rect[3] / 2) - text_h
+
+        # Do not show your opponent's cards
         if agent_idx == 1:
             self.screen.blit(self.font.render(card_value, True, self.BLACK), render_rect)
+        
+        # Render 'UP' and 'DOWN' 
         if pile_text is not None:
-            #render_rect = self.screen.blit(source, destination)
             render_rect[0] -= (render_rect[2] / 2) - (text_w/2)
             render_rect[1] -= (render_rect[3] / 2) - text_h
             text_font = pygame.font.SysFont('Arial', 30)
+
+            # Account for the size of the text
             text_w, text_h = text_font.size(pile_text)
             render_rect[0] += (render_rect[2] / 2) - (text_w/2)
             render_rect[1] += (render_rect[3] / 2) + (text_h/2)
@@ -106,13 +115,16 @@ class GameGUI():
             self.screen.blit(text_font.render(pile_text, True, self.BLACK), render_rect)
             text_font.set_underline(False)
     
+    # Displays whether the game has been won or lost
     def display_game_ending(self, end_text):
         self.screen.fill(self.bg)
-        end_img = pygame.Surface((self.width/2, self.height/4))  # The tuple represent size.
+        end_img = pygame.Surface((self.width/2, self.height/4)) 
         end_img.fill(self.bg)
         text_pos = pygame.Rect((self.width/2, (self.height/2)-(self.height/8)), (self.width/2, self.height/2))
         render_rect = self.screen.blit(end_img, text_pos)
         text_font = pygame.font.SysFont('Arial', 50)
+
+        # Account for the size of the text
         text_w, text_h = text_font.size(end_text)
         render_rect[0] -= (text_w/2)
         render_rect[1] -= (text_h / 2)
@@ -141,7 +153,7 @@ class GameGUI():
 
         # Text to display where the announcements for DOWN stack will be located
         announce_stack2 = text.render('Announcements for DOWN stack', True, self.BLACK)
-        self.screen.blit(announce_stack2, (self.width/1.35, self.height/3))
+        self.screen.blit(announce_stack2, (self.width/1.45, self.height/3))
         text.set_underline(False)
 
         # Display who's turn it is
@@ -152,15 +164,33 @@ class GameGUI():
         y = self.height/1.4 if agent_turn == 0 else self.height/4
         self.screen.blit(text3, (self.width/40, y))
 
-    
-    def display_announcements(self, text, stack_type):
-        font = pygame.font.SysFont('Arial', 14)
+    def display_announcements(self, text, stack_type, announcement_idx=1):
+        font = pygame.font.SysFont('Arial', 18)
         pygame.display.update()
+        height_idx = (self.height/40)*(announcement_idx-1)
         # Loop to keep displaying the announcements
         while True:
             display_text = font.render(text, True, self.WHITE)
-            x = self.width/40 if stack_type == 'UP' else self.width/1.5
-            self.screen.blit(display_text, (x, self.height/2.5))
+            x = self.width/40 if stack_type == 'UP' else self.width/1.55
+            self.screen.blit(display_text, (x, (self.height/2.5)+height_idx))
+            pygame.display.update()
+            while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        print('exited game')
+                        quit()
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            return
+
+    # Displays what card has been played by which player
+    def display_card_played(self, text, agent_turn):
+        font = pygame.font.SysFont('Arial', 30)
+        y = self.height/3.03 if agent_turn == 1 else self.height/1.52
+        while True:
+            display_text = font.render(text, True, self.YELLOW)
+            text_w, text_h = font.size(text)
+            self.screen.blit(display_text, ((self.width/2.15)-(text_w/2), y))
             pygame.display.update()
             while True:
                 for event in pygame.event.get():
