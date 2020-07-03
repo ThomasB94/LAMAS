@@ -11,41 +11,37 @@
   <p></p>
   <p class="main-text" style="text-align: left;">
     First we want to define the 'quality' of a card.
-    With this we want to be able to give some performance to the cards in a given situation, to be able to make a decision about which is the best to play.
+    With this we want to be able to give some value to the cards in a given situation, to be able to make a decision about which is the best to play.
     The closer a card is to the card that is currently on top of the stack, the better the card.
     A card very close to the current number, allows for more other possible cards to be played after.
   </p>
   <p></p>
   <p class="main-text" style="text-align: left;">
-    The rules state that you cannot share knowledge about specific numbers, but there are a lot of communications that give a lot of information without mentioning specific numbers.
-    Because the type of communication that is allowed is not strictly governed by the rules, we will be looking at multiple options.
-    Firstly we will give a default type of communication strategy.
+    The rules state that you cannot share knowledge about specific numbers, but there are a lot of communications that give information without mentioning specific numbers.
+    Since the type of communication that is allowed is not strictly governed by the rules, we will be looking at multiple options.
+    More concretely, we will look at three different settings.
+    <!-- First we will give a default type of communication strategy.
     This would be using communication in which the non-playing agent states for every stack, whether it has a good or a bad card.
     Here a good card would be a card in the top half of all card that can be played, ranked by their 'quality' as presented above.
-    In a logical system this could be represented by a public announcement, removing a set of worlds from a Kripke model.
-  </p>
-  <p></p>
-  <p class="main-text" style="text-align: left;">
-    Then we will vary this default communication strategy in several categories:
+    In a logical system this could be represented by a public announcement, removing a set of worlds from a Kripke model. --> 
   </p>
   <p></p>
   <ul class="main-list">
-    <li >
-      <a> <a class="list-title">Number of announcements per turn</a>: For this variation we will look at the effects of multiple rounds of announcements. Every announcement will provide more information.</a>
-    </li>
     <li>
-      <a> <a class="list-title">Percentage range of the announcement</a>: For this strategy we will experiment with the percentiles (the default is 50).
-        We will look at the 10<sup>th</sup> and 25<sup>th</sup> percentiles, which represent the range where a card is considered 'good'. </a>
+      <a> <a class="list-title">Relative range of the announcement</a>: We will look at the 50<sup>th</sup>, which represent the range where a card is considered 'good'. This is similar to the aforementioned default strategy.</a>
     </li>
     <li>
       <a> <a class="list-title">Absolute range of the announcement</a>: In this case we take the good statement not to mean having a card in a certain percentile, but having a card in the top <i>k</i>  cards. </a>
     </li>
+    <li >
+      <a> <a class="list-title">Number of announcements per turn</a>: For this variation we will look at the effects of multiple rounds of announcements. Every announcement will provide more information.</a>
+    </li>
   </ul>
   <p></p>
   <p class="main-text" style="text-align: left;">
+    In a logical system, these communications will be represented by public announcements that remove worlds from a Kripke model.
     Any Kripke structure that is designed for this task, has to contend with two problems:
-    A simulation that included kripke worlds for all possible card combinations would not be managable.
-    And the state of the game changes every round.
+    a simulation that included Kripke worlds for all possible card combinations would not be manageable and the state of the game changes every round.
     Meaning that an accurate Kripke model needs to be rebuild every turn.
     Because of this the Kripke structure has a unique form.
     It needs to accurately capture the beliefs, but also be fast enough to be build quickly.
@@ -63,7 +59,7 @@
     The second part "S2" tells you this proposition relates to stack two.
     Lastly the "3" tells you that this preposition represents the card three.
     So this proposition tells you that player one for stack two has as their best card a three.
-    At the start of every round, a Kripke structure can be buid containing all worlds that are still possible.
+    At the start of every round, a Kripke structure can be build containing all worlds that are still possible.
     The relations between these world are ordered around the following idea:
     A player can only distinguish between worlds where propositions relating to their cards differ.
   </p>
@@ -79,7 +75,7 @@
     The last part is making the actual announcement that will change the Kripke model.
     An announcement of "My best card is in the top half of all possible cards", is an equivalent to "I do not have an 99, nor a 98, nor a 97... nor a 51".
     This form is easily adaptable into a logical announcement compliant with the Kripke model.
-    The system will contstruct an announcement as the exclusion of all the cards that were not in the subset in which the announcers actual card was.
+    The system will construct an announcement as the exclusion of all the cards that were not in the subset in which the announcers actual card was.
   </p>
 </div>
 <button (click)="topFunction()" id="myBtn" title="Go to top ">&uarr; &uarr; &uarr;</button>
