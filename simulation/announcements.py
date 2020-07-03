@@ -110,7 +110,7 @@ def make_range_announcement(agent, game, ks, announcement_type, announcement_idx
 
 def determine_exclusion_set(game, agent, stack, best_for_stack, announcement_type, stack_type, announcement_idx):
     # Split the list according to the specified strategy
-    if announcement_type == 'range':
+    if announcement_type == 'relative':
         first_half, second_half = split_list(stack)
         print_rest = 'have a card in the best half of cards for stack'
     elif announcement_type == 'absolute':

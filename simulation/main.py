@@ -7,10 +7,10 @@ def main():
     if len(sys.argv) != 3:
         sys.exit("Please specify an announcement type and the number of announcements for example: python main.py absolute 2") 
     announcement_type = sys.argv[1]
-    if announcement_type != 'absolute' and announcement_type != 'range' and announcement_type != 'none':
-        sys.exit("Please specify a correct communication type: none, absolute or range")
+    if announcement_type != 'absolute' and announcement_type != 'relative' and announcement_type != 'none':
+        sys.exit("Please specify a correct communication type: none, absolute or relative")
     num_announcements = sys.argv[2]
-    if announcement_type == 'absolute' or announcement_type == 'range':
+    if announcement_type == 'absolute' or announcement_type == 'relative':
         if num_announcements not in ['1','2','3']:
             sys.exit("Please specify a correct number of announcements: 1, 2 or 3")
         else:
