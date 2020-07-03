@@ -18,7 +18,7 @@
 }
 
 .guiimg:hover {
-  transform: scale(1.7);
+  transform: scale(2);
   z-index: 999;
 }
 

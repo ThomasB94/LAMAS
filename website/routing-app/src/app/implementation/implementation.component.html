@@ -10,7 +10,7 @@
   Furthermore, the number of announcements that a player can make in a turn can be specified (<b>1</b>, <b>2</b> or <b>3</b> announcements).
   </p>
   <div class="imgcenter">
-  <img class="guiimg" src="assets/imgs/gui.png" height="auto" width="100%">
+  <img class="guiimg" src="assets/imgs/gui.png" height="auto" width="90%">
   </div>
   <p class="main-text" style="text-align: left;">
     The analytical simulation variant differs from the graphical option in that there is no visualization. This analytical variant is used to
@@ -25,11 +25,12 @@
   <div id="divider">&nbsp;</div>
   <p class="main-text" style="text-align: left;">
     While our simulation has proven to increase the win ratio when using public announcement logic, it is not entirely satisfactory in terms of how realistic the simulation is.
-    The simplifications we have made provide a reasonable estimate to how public announcement logic influences The Game, but at the simplifications also impose some import limitations.
+    The simplifications we have made provide a reasonable estimate to how public announcement logic influences The Game, but at the same time these simplifications also impose some important limitations.
     For example, after the cards have been dealt to both players, only 6 more cards remain in that current game. This makes our simplified version much more deterministic than the 
     'real' game. In other words, in our version the chance of getting the 'perfect' card for a stack is relatively high. It would be very interesting to investigate what kind of effect a decreased amount 
     of determinism has on the parameters we have researched in this project (number of announcements and type of announcement). A possibility to research this, could be
-    Symbolic Model Checking for Dynamic Epistemic Logic (SMCDEL)<sup>1</sup>, which improves the speed at which Kripke models can be evaluated.
+    Symbolic Model Checking for Dynamic Epistemic Logic (SMCDEL)<sup>1</sup>, which improves the speed at which Kripke models can be evaluated and therefore allow for games with more cards (and thus more states)
+    to be modelled.
   </p>
   <p class="ref-text"><sup>1</sup>: Benthem, J., van Eijck, J., Gattinger, M., & Su, K. (2017). Symbolic Model Checking for Dynamic Epistemic Logic — S5 and Beyond. Journal of Logic and Computation, 28(2), 367-402.</p>
 </div>
