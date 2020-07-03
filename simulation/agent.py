@@ -23,6 +23,8 @@ class Agent():
         self.game.played_cards[card] = True
         return (card, stack_idx)
 
+    # determines whether the agent can make a move
+    # agent can only make a move if it has a card higher than up stack or lower than down stack
     def can_make_move(self):
         cards = self.get_closest_cards()
         if cards[0][1] == 99999 and cards[1][1] == 99999:
@@ -30,6 +32,7 @@ class Agent():
         else:
             return True
 
+    # get a card from the remaining stack
     def take_card(self):
         if self.game.remaining:
             self.hand.append(self.game.remaining.pop())
@@ -60,20 +63,24 @@ class Agent():
 
     # Determines which stack a card should be put on and the card that should be put on the table
     def determine_strategy(self):
+        # get the best cards for the agents
         closest = self.get_closest_cards()
         closest_up = closest[0][0]
         closest_down = closest[1][0]
+        # if agent has just one possible card, put the card on the correct stack
         if closest[0][1] == 99999:
             return 1, closest_down
         elif closest[1][1] == 99999:
             return 0, closest_up
+        # otherwise look at the possible cards for the other player, based on the worlds in the Kripke model
+        # based on the closest possible cards for the other player, we put the best card on the right stack
         else:
             ks = self.game.model
             all_worlds = ks.worlds
             possible_up = []
             possible_down = []
+            # given our cards, look at possible cards
             prefix = str(closest_up) + '/' + str(closest_down)
-            #TODO: fix this id of agent determines which world to check
             if self.id == 0:
                 for world in all_worlds:
                     if prefix == world.name[0:3]:
@@ -88,15 +95,16 @@ class Agent():
 
             possible_up = list(set(possible_up))
             possible_down = list(set(possible_down))
+            # if the other player has no possible cards for the up stack, we should put our card on the up stack
+            # to make sure we don't put a card on the down stack that hinders the other player
             if possible_up == []:
                 return 0, closest_up
+            # if the other player has no possible cards for the down stack, we should put our card on the down stack
+            # to make sure we don't put a card on the up stack that hinders the other player
             if possible_down == []:
                 return 1, closest_down
             other_closest_up = min(possible_up)
             other_closest_down = max(possible_down)
-
-            if closest_up < self.game.table[0][0][-1]:
-                print(other_closest_up)
 
             if closest_up < other_closest_up:
                 # here we have better cards for both stacks, so we make a random choice

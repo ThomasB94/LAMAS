@@ -47,7 +47,7 @@ class Game():
         # remaining is the pile that cars are taken from after every turn
         self.remaining = possible_cards = list(range(2,self.top_card))
 
-        # setup agents and generate hands
+        # setup agents and generate hands like in a real game
         random.shuffle(possible_cards)
         self.agents = []
         for agent_idx in range(self.num_agents):
@@ -58,7 +58,7 @@ class Game():
         print('The cards have been shuffled. You and your opponent both receive 2 cards.')
         
         
-    # A round is a round of announcements after which an agent decides which stack to put their card on
+    # a round is a round of announcements after which an agent decides which stack to put their card on
     def game_loop(self):
         agent_turn = 0
         round = 1
