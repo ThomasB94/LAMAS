@@ -2,51 +2,51 @@
 
 <div class="jumbotron mycustom-jumbotron text-center">
   <h2 style="text-align: left; width: 40vw; margin: auto; margin-bottom: 12px; margin-top: -40px; font-size: larger; font-weight: bold; font-family: 'Roboto';">Introduction</h2>
-  <div id="divider">&nbsp;</div> 
+  <div id="divider">&nbsp;</div>
   <p class ="main-text" style="text-align: left;">
-    The Game is a card game that can be played with 1 to 5 players. 
-    It is a cooperative game, because players play together against the game. 
-    Instead of a traditional deck, the game uses cards numbered from 2 to 99. 
-    The game is setup with four cards on the table; two 1s and two 100s. 
-    Each player is dealt a number of cards from the deck, depending on how many players play. 
-    The remaining cards are put on the table. 
-    The goal of the game is for every player to discard all of their cards. 
-    This can be done on either of the four cards on table by placing cards larger than the current cards on the stack on the 1 cards and cards lower than the current cards on the stack on the 100 cards. 
-    Every round each player must discard at least two cards and take as many cards as he/she discarded. 
-    To give an example, let’s say some rounds have passed and the table has the cards; 30, 5, 91, 100. 
-    A player can now put cards higher than 30 and 5 and lower than 91 and 100 on the perspective stacks. 
-    The best strategy is to put cards on the table that are closest to the current cards, because this allows for the most cards to be put on the stacks. 
-    To help the players win the game, they can communicate. However, these communications are limited. 
-    Players can’t tell others which cards they have, but they can make vague claims such as “My cards are particularly good for the 30 stack” or “My cards are close to the 100 stack”.    
-  
-  
+    The Game is a card game that can be played with 1 to 5 players.
+    It is a cooperative game, where players play together against the game.
+    Instead of a traditional deck, the game uses cards numbered from 2 to 99.
+    The game is setup with four cards on the table; two 1s and two 100s.
+    Each player is dealt a number of cards from the deck, depending on how many players play.
+    The remaining cards are put on the table.
+    The goal of the game is for every player to discard all of their cards.
+    This can be done on either of the four cards on table by placing cards in an ascending or decending order on the one and on the hundred cards respectively.
+    Every round each player must discard at least two cards and take as many cards as he/she discarded.
+    To give an example, let’s say some rounds have passed and the table has the cards; 30, 5, 91, 100.
+    A player can now put cards higher than 30 and 5 and lower than 91 and 100 on the perspective stacks.
+    The best strategy is to put cards on the table that are closest to the current cards, because this allows for the most cards to be put on the stacks.
+    To help the players win the game, they can communicate. However, these communications are limited.
+    Players can’t tell others which cards they have, but they can make vague claims such as “My cards are particularly good for the 30 stack” or “My cards are close to the 100 stack”.
+
+
   </p>
   <p></p>
   <p class ="main-text" style="text-align: left;">
-    Though the game seems simple, playing with the aforementioned rules would lead to an enormous amount of possible game states. 
-    Therefore, we will simplify the game in the following ways. 
-    We will play with only two players and two stacks of cards on the table, one that goes from 1 to 10 and one that goes from 10 to 1. 
-    Both players are dealt two cards and the remaining four cards are put on the table. 
+    Though the game seems simple, playing with the aforementioned rules would lead to an enormous amount of possible game states.
+    Therefore, we will simplify the game in the following ways.
+    We will play with only two players and two stacks of cards on the table, one that goes from 1 to 10 and one that goes from 10 to 1.
+    Both players are dealt two cards and the remaining four cards are put on the table.
   </p>
   <p></p>
   <p class="main-text" style="text-align: left;">
-    The knowledge and the communication of players can be captured using epistemic and public announcement logic. 
-    In this project we will model the knowledge using Kripke models. 
+    The knowledge and the communication of players can be captured using epistemic and public announcement logic.
+    In this project we will model the knowledge using Kripke models.
     Specifically, we will look at how communications change the Kripke models and how the resulting winning probability changes.
   </p>
   <p></p>
   <p class="main-text" style="text-align: left;">
-    In order to do this we first need to lay out some communications strategies. 
-    We will look at the situation with no communication and compare it to situations where players can make “absolute” and “relative” announcements. 
-    In our projects absolute communications are announcement that say something about an absolute number of cards, namely 3. 
-    Relative communications give the other players information about 50% of the cards. 
-    We will explain this using an example. 
-    Let’s say it is the first round and we have the cards 4 and 8. 
-    The possible cards that the other player can have are 2, 3, 5, 6, 7, 9. 
-    Now the player can make an absolute announcement that tells us whether their cards are in the top 3 of cards or not. 
-    The player can also make a relative announcement that give us information about whether their cards are in the best 50% of cards or not. 
-    Instead of making one announcements, the player can also make two or three announcements. 
-    The announcement type and the amount of announcements will determine how much information is given. 
+    In order to do this we first need to lay out some communications strategies.
+    We will look at the situation with no communication and compare it to situations where players can make “absolute” and “relative” announcements.
+    In our projects absolute communications are announcement that say something about an absolute number of cards, specifically 3.
+    Relative communications give the other players information about 50% of the cards.
+    We will explain this using an example.
+    Let’s say it is the first round and we have the cards 4 and 8.
+    The possible cards that the other player can have are 2, 3, 5, 6, 7, 9.
+    Now the player can make an absolute announcement that tells us whether their cards are in the top 3 of cards or not.
+    The player can also make a relative announcement that give us information about whether their cards are in the best 50% of cards or not.
+    Instead of making one announcements, the player can also make two or three announcements.
+    The announcement type and the amount of announcements will determine how much information is given.
     The knowledge for both players is captured in a Kripke model that is reduced by the announcements until there are only a few possibilities left, meaning the player can make an informed choice.
   </p>
 </div>

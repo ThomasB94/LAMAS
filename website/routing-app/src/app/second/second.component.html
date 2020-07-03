@@ -2,11 +2,11 @@
 
 <div class="jumbotron mycustom-jumbotron text-center">
   <h2 style="text-align: left; width: 40vw; margin: auto; margin-bottom: 12px; margin-top: -40px; font-size: larger; font-weight: bold; font-family: 'Roboto';">Analysis</h2>
-  <div id="divider">&nbsp;</div> 
+  <div id="divider">&nbsp;</div>
   <p class="main-text" style="text-align: left;">
     In this section we will look at the communications within the game.
     We will look at the types of communications that are allowed, and their effect on the game.
-    We want to look at the how the communications affect the state of knowledge, and the effects on the game.
+    We want to look at the how the communications affect the state of knowledge, and by proxy, how it affects a Kripke model of the game.
   </p>
   <p></p>
   <p class="main-text" style="text-align: left;">
@@ -22,8 +22,7 @@
     Firstly we will give a default type of communication strategy.
     This would be using communication in which the non-playing agent states for every stack, whether it has a good or a bad card.
     Here a good card would be a card in the top half of all card that can be played, ranked by their 'quality' as presented above.
-    In a logical system this could be represented by a public announcement.
-    In the final version we will give a more in depth look a the logical structure of this announcement, and its effects on the Kripke models.
+    In a logical system this could be represented by a public announcement, removing a set of worlds from a Kripke model.
   </p>
   <p></p>
   <p class="main-text" style="text-align: left;">
@@ -72,15 +71,15 @@
   <p class="main-text" style="text-align: left;">
     The announcements in this framework can be divided up into three parts.
     First is the collections of a set of possible worlds.
-    This is done through the Kripke structure, as it allows you to check which worlds are still presents.
+    This is done through the Kripke structure, as it allows you to check which worlds are still possible.
     The corresponding cards numbers relating to those worlds can then be used to construct a set of possible cards.
-    In the second part, the set can then be ordered based on the "goodness" of the cards.
+    In the second part, the set can then be ordered based on the "quality" of the cards.
     After ordering the cards the type of announcement combined with the actual value of the best card that you have, will determine the announcement.
     This can be seen as splitting the set based on the announcement type, and determining in which subset your card is.
     The last part is making the actual announcement that will change the Kripke model.
-    An announcement of "My card best card is in the top half of cards", is an equivalent to "I do not have an 99, nor a 98, nor a 97... nor a 51".
+    An announcement of "My best card is in the top half of all possible cards", is an equivalent to "I do not have an 99, nor a 98, nor a 97... nor a 51".
     This form is easily adaptable into a logical announcement compliant with the Kripke model.
-    The system will contstructing an announcement as the exclusion of all the cards that were not in the subset in which the announcers actual card was.
+    The system will contstruct an announcement as the exclusion of all the cards that were not in the subset in which the announcers actual card was.
   </p>
 </div>
 <button (click)="topFunction()" id="myBtn" title="Go to top ">&uarr; &uarr; &uarr;</button>
