@@ -6,9 +6,9 @@ import { ThirdComponent } from './third/third.component';
 import { ImplementationComponent } from './implementation/implementation.component';
 
 const routes: Routes = [
-  { path: 'analysis', component: ThirdComponent },
+  { path: 'experiments', component: ThirdComponent },
   { path: '', component: FirstComponent },
-  { path: 'logic', component: SecondComponent },
+  { path: 'analysis', component: SecondComponent },
   { path: 'implementation', component: ImplementationComponent },
 ];
 
