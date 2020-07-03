@@ -8,4 +8,4 @@ An explanation on what is implemented here can be found [here](https://lamas-202
 - ```pip3 install -r requirements.txt```
 - ```python3 main.py announcement_type number_of_announcements```
 
-where ```announcement_type``` can be of the kind ```absolute``` or ```range``` or ```none```. If ```none```, then do not specify the ```number_of_announcements```. If ```absolute``` or ```range```, ```number_of_announcements``` can be any of 1, 2 or 3.
+where ```announcement_type``` can be of the kind ```absolute``` or ```range``` or ```none```. The ```number_of_announcements``` can be any of 1, 2 or 3.
